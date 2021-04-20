@@ -11,7 +11,7 @@
         android:theme="@style/Theme.ResultProcess">
         <activity android:name=".InputResultActivity"></activity>
         <activity android:name=".DashboardActivity" />
-        <activity android:name=".EditProfileActivity" />
+        <activity android:name=".EditProfileActivity"  />
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class DashboardActivity extends AppCompatActivity {
+    String mahtab;
 
     Button inputResult;
 
@@ -26,6 +27,7 @@ public class DashboardActivity extends AppCompatActivity {
         inputResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(DashboardActivity.this, InputResultActivity.class);
                 startActivity(intent);
             }
