@@ -5,16 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="center_horizontal"
+    android:background="@drawable/iit_background"
     tools:context=".RegistrationActivity">
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Registration Page"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="75dp"
+        android:src="@drawable/iit_logo"
+        android:layout_marginTop="25dp"
+        />
+
+    <EditText
+        android:id="@+id/fullName"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="60dp"
+        android:drawablePadding="10dp"
+        android:background="#ffffff"
+        android:hint="Enter Full Name"
+        android:textColorHint="@color/black"
+        android:inputType="text"/>
+
 
 </LinearLayout>
