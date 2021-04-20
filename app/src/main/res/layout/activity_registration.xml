@@ -26,6 +26,16 @@
         android:hint="Enter Full Name"
         android:textColorHint="@color/black"
         android:inputType="text"/>
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="60dp"
+        android:drawablePadding="10dp"
+        android:background="#ffffff"
+        android:hint="Enter Your Email"
+        android:textColorHint="@color/black"
+        android:inputType="textEmailAddress"/>
 
 
 </LinearLayout>

@@ -16,4 +16,5 @@ public class RegistrationActivity extends AppCompatActivity {
 
         fullName = (EditText) findViewById(R.id.fullName);
     }
+    private EditText email;
 }
