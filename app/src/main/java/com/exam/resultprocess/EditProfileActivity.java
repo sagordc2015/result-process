@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 public class EditProfileActivity extends AppCompatActivity {
     String din;
+    String aklimapanna;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
