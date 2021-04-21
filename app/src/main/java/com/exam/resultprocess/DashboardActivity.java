@@ -12,8 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class DashboardActivity extends AppCompatActivity {
-    String mahtab;
-
+    String result;
     Button inputResult;
 
     @Override
