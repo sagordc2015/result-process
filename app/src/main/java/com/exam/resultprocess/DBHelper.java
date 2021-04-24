@@ -114,7 +114,6 @@ public class DBHelper extends SQLiteOpenHelper {
             SQLiteDatabase db = this.getReadableDatabase();
             String sql = "SELECT * FROM Users WHERE email = ? OR identity = ?";
             Cursor cursor = db.rawQuery(sql, new String[]{value, value});
-            System.out.println(cursor.moveToFirst());
             if(cursor.moveToFirst()){
                 users.setFullName(cursor.getString(cursor.getColumnIndex("fullName")));
                 users.setEmail(cursor.getString(cursor.getColumnIndex("email")));

@@ -4,17 +4,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Users implements Parcelable {
-    private String fullName;
-    private String email;
-    private String gender;
-    private String identity;
-    private String type;
-    private String designationOrCourse;
-    private String mobile;
-    private String imageName;
-    private String extension;
-    private String password;
-    private String confirmPassword;
+    private String fullName = "";
+    private String email = "";
+    private String gender = "";
+    private String identity = "";
+    private String type = "";
+    private String designationOrCourse = "";
+    private String mobile = "";
+    private String imageName = "";
+    private String extension = "";
+    private String password = "";
+    private String confirmPassword = "";
 
     public Users() {
 

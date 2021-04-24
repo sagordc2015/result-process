@@ -46,13 +46,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String name = username.getText().toString();
                 String pass = password.getText().toString();
-                if(name == ""){
+                if(name.equals("")){
                     Toast.makeText(MainActivity.this, "Please Username is Required!!!", Toast.LENGTH_SHORT).show();
-                }else if(pass == ""){
+                }else if(pass.equals("")){
                     Toast.makeText(MainActivity.this, "Please Password is Required!!!", Toast.LENGTH_SHORT).show();
                 }else {
                     Users checkUser = dbHelper.getByEmailOrID(name);
-                    if(checkUser.getIdentity() == ""){
+                    if(checkUser.getIdentity().equals("")){
                         Toast.makeText(MainActivity.this, "Email Or ID not registration, please first registration!!!", Toast.LENGTH_SHORT).show();
                     }else {
                         if(checkUser.getEmail().equals(name) || checkUser.getIdentity().equals(name)){
