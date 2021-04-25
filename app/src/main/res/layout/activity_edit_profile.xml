@@ -5,16 +5,287 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="center_horizontal"
+    android:background="@drawable/iit_background"
     tools:context=".EditProfileActivity">
 
-    <TextView
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/iit_logo"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/fullNameLavel"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:text="Full Name : "
+            android:textSize="18dp"
+            android:textColor="@color/blue"
+            android:background="@color/white"
+            android:gravity="center"/>
+        <EditText
+            android:id="@+id/editFullName"
+            android:inputType="text"
+            android:layout_width="275dp"
+            android:layout_height="35dp"
+            android:hint="Enter full name"
+            android:textSize="18dp"
+            android:textColorHint="@color/black"
+            android:background="@color/white"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@+id/fullNameLavel"
+            android:layout_toRightOf="@+id/fullNameLavel" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/emailLavel"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:text="Email : "
+            android:textSize="18dp"
+            android:textColor="@color/blue"
+            android:background="@color/white"
+            android:gravity="center"/>
+        <EditText
+            android:id="@+id/editEmail"
+            android:inputType="textEmailAddress"
+            android:layout_width="275dp"
+            android:layout_height="35dp"
+            android:hint="Enter email id"
+            android:textSize="18dp"
+            android:textColorHint="@color/black"
+            android:background="@color/white"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@+id/emailLavel"
+            android:layout_toRightOf="@+id/emailLavel" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/genderLavel"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:text="Gender : "
+            android:textSize="18dp"
+            android:textColor="@color/blue"
+            android:background="@color/white"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/editGender"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="5dp"
+            android:textSize="18dp"
+            android:textColor="@color/blue"
+            android:background="@color/white"
+            android:gravity="center"
+            android:layout_toEndOf="@id/genderLavel"
+            android:layout_toRightOf="@id/genderLavel"/>
+
+        <TextView
+            android:id="@+id/identityLevel"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="5dp"
+            android:text="ID : "
+            android:textSize="18dp"
+            android:textColor="@color/blue"
+            android:background="@color/white"
+            android:gravity="center"
+            android:layout_toEndOf="@+id/editGender"
+            android:layout_toRightOf="@+id/editGender"/>
+        <TextView
+            android:id="@+id/editIdentity"
+            android:inputType="number"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:background="@color/white"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:textColorHint="@color/black"
+            android:layout_toEndOf="@+id/identityLevel"
+            android:layout_toRightOf="@+id/identityLevel"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/mobileLavel"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:text="Mobile : "
+            android:textSize="18dp"
+            android:textColor="@color/blue"
+            android:background="@color/white"
+            android:gravity="center"/>
+        <EditText
+            android:id="@+id/editMobile"
+            android:inputType="number"
+            android:layout_width="275dp"
+            android:layout_height="35dp"
+            android:hint="Enter mobile number"
+            android:textSize="18dp"
+            android:textColorHint="@color/black"
+            android:background="@color/white"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@+id/mobileLavel"
+            android:layout_toRightOf="@+id/mobileLavel" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/typeLavel"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:text="Type : "
+            android:textSize="18dp"
+            android:textColor="@color/blue"
+            android:background="@color/white"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/editType"
+            android:inputType="number"
+            android:layout_width="275dp"
+            android:layout_height="35dp"
+            android:textColorHint="@color/black"
+            android:background="@color/white"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@+id/typeLavel"
+            android:layout_toRightOf="@+id/typeLavel" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/designationOrCourseLavel"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:text="Course : "
+            android:textSize="18dp"
+            android:textColor="@color/blue"
+            android:background="@color/white"
+            android:gravity="center"/>
+        <Spinner
+            android:id="@+id/editDesignationOrCourseName"
+            android:inputType="number"
+            android:layout_width="275dp"
+            android:layout_height="35dp"
+            android:hint="Enter mobile number"
+            android:textColorHint="@color/black"
+            android:background="@color/white"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@+id/designationOrCourseLavel"
+            android:layout_toRightOf="@+id/designationOrCourseLavel" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/edit_upload_image"
+            android:layout_width="196dp"
+            android:layout_height="196dp"
+            android:background="#C4E4DD"
+            android:src="@drawable/user_profile"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/passwordLavel"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:text="Password : "
+            android:textSize="18dp"
+            android:textColor="@color/blue"
+            android:background="@color/white"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/editPassword"
+            android:inputType="textPassword"
+            android:layout_width="275dp"
+            android:layout_height="35dp"
+            android:hint="Enter Password"
+            android:textColorHint="@color/black"
+            android:background="@color/white"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@+id/passwordLavel"
+            android:layout_toRightOf="@+id/passwordLavel" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/confirmPasswordLavel"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:text="Confirm : "
+            android:textSize="18dp"
+            android:textColor="@color/blue"
+            android:background="@color/white"
+            android:gravity="center"/>
+        <EditText
+            android:id="@+id/editConfirmPassword"
+            android:inputType="textPassword"
+            android:layout_width="275dp"
+            android:layout_height="35dp"
+            android:hint="Enter Confirm Password"
+            android:textSize="18dp"
+            android:textColorHint="@color/black"
+            android:background="@color/white"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@+id/confirmPasswordLavel"
+            android:layout_toRightOf="@+id/confirmPasswordLavel" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/profileUpdateBtn"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit Profile Page"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="update"/>
 
 </LinearLayout>
