@@ -5,16 +5,228 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     tools:context=".InputResultActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Input Result Page"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        >
+
+        <EditText
+            android:id="@+id/studentid"
+            android:layout_width="150dp"
+            android:layout_height="45dp"
+            android:hint="Enter id"
+            />
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:text="press"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:text="Email : "
+            />
+        <TextView
+            android:id="@+id/showEmail"
+            android:layout_width="150dp"
+            android:layout_height="35dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:text="Mobile"
+            />
+        <TextView
+            android:id="@+id/showMobile"
+            android:layout_width="150dp"
+            android:layout_height="35dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:text="Gender"
+            />
+        <TextView
+            android:id="@+id/showGender"
+            android:layout_width="150dp"
+            android:layout_height="35dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:text="Course"
+            />
+        <TextView
+            android:id="@+id/showCourse"
+            android:layout_width="150dp"
+            android:layout_height="35dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:text="Semester"
+            />
+        <Spinner
+            android:id="@+id/showSemester"
+            android:layout_width="150dp"
+            android:layout_height="45dp"
+            android:spinnerMode="dropdown"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:text="Attendence"
+            />
+        <EditText
+            android:id="@+id/showAttendence"
+            android:layout_width="150dp"
+            android:layout_height="45dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:text="Assignment"
+            />
+        <EditText
+            android:id="@+id/showAssignment"
+            android:layout_width="150dp"
+            android:layout_height="45dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:text="Presentation"
+            />
+        <EditText
+            android:id="@+id/showPresentation"
+            android:layout_width="150dp"
+            android:layout_height="45dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:text="Midterm"
+            />
+        <EditText
+            android:id="@+id/showMidterm"
+            android:layout_width="150dp"
+            android:layout_height="45dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:text="Final"
+            />
+        <EditText
+            android:id="@+id/showFinal"
+            android:layout_width="150dp"
+            android:layout_height="45dp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/Total"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:text="Total" />
+
+
+
 
 </LinearLayout>
