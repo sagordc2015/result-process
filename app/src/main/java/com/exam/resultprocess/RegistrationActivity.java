@@ -1,6 +1,7 @@
 package com.exam.resultprocess;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -35,6 +37,8 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RegistrationActivity extends AppCompatActivity {
+
+    final String secretKey = "ssshhhhhhhhhhh!!!!";
 
     EditText fullName, email, identity, mobile, password, confirmPassword;
     RadioGroup genderRadioGroup;
@@ -86,6 +90,7 @@ public class RegistrationActivity extends AppCompatActivity {
         });
 
         submit.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 int radioId = genderRadioGroup.getCheckedRadioButtonId();
@@ -109,18 +114,22 @@ public class RegistrationActivity extends AppCompatActivity {
                         Toast.makeText(RegistrationActivity.this, "Email Or ID Already Exist!!!", Toast.LENGTH_SHORT).show();
                     } else {
                         Users users = new Users();
-                        users.setFullName(fullName.getText().toString());
-                        users.setEmail(email.getText().toString());
+                        users.setFullName(fullName.getText().toString().trim());
+                        users.setEmail(email.getText().toString().trim());
                         users.setGender(genderRadioButton.getText().toString());
-                        users.setIdentity(identity.getText().toString());
+                        users.setIdentity(identity.getText().toString().trim());
                         users.setType(String.valueOf(type.getSelectedItem()));
                         users.setDesignationOrCourse(String.valueOf(designationOrCourseName.getSelectedItem()));
 //                        users.setPassword(password.getText().toString());
-                        System.out.println(HashMD5.passwordHashing(password.getText().toString()));
-                        users.setPassword(HashMD5.passwordHashing(password.getText().toString()));
-                        users.setConfirmPassword(HashMD5.passwordHashing(confirmPassword.getText().toString()));
+                        System.out.println(HashMD5.passwordHashing(password.getText().toString().trim()));
+                        users.setPassword(HashMD5.passwordHashing(password.getText().toString().trim()));
+                        users.setConfirmPassword(HashMD5.passwordHashing(confirmPassword.getText().toString().trim()));
 //                        users.setConfirmPassword(confirmPassword.getText().toString());
-                        users.setImageName(identity.getText().toString());
+                        String encrypt = EncryptAndDecrypt.encrypt(identity.getText().toString().trim(), secretKey);
+                        System.out.println(encrypt + " *** ENCRYPT");
+                        String decrypt = EncryptAndDecrypt.decrypt(encrypt, secretKey);
+                        System.out.println(decrypt + " -- DECRYPT");
+                        users.setImageName(identity.getText().toString().trim());
                         users.setExtension(".jpeg");
 //                        users.setImage(imageToStore);
                         BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
