@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.exam.resultprocess.model.Users;
@@ -41,6 +42,7 @@ public class RegistrationActivity extends AppCompatActivity {
     final String secretKey = "ssshhhhhhhhhhh!!!!";
 
     EditText fullName, email, identity, mobile, password, confirmPassword;
+    TextView login;
     RadioGroup genderRadioGroup;
     RadioButton genderRadioButton;
     Spinner type, designationOrCourseName;
@@ -64,6 +66,8 @@ public class RegistrationActivity extends AppCompatActivity {
         mobile = (EditText) findViewById(R.id.mobile);
         password = (EditText) findViewById(R.id.password);
         confirmPassword = (EditText) findViewById(R.id.confirmPassword);
+
+        login = (TextView) findViewById(R.id.goLogin);
 
         genderRadioGroup = (RadioGroup) findViewById(R.id.genderGroup);
 
@@ -162,6 +166,14 @@ public class RegistrationActivity extends AppCompatActivity {
 //                        startActivity(intent);
                     }
                 }
+            }
+        });
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 

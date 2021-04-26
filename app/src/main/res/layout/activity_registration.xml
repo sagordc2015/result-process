@@ -117,7 +117,7 @@
                     android:gravity="center"
                     android:hint="Enter ID"
                     android:textSize="18dp"
-                    android:maxLines="4"
+                    android:maxLength="4"
                     android:textColorHint="@color/black"/>
 
             </LinearLayout>
@@ -324,7 +324,7 @@
                     android:textSize="18dp"
                     android:textColorHint="@color/black"
                     android:background="@color/white"
-                    android:minLines="6"
+
                     android:layout_marginLeft="5dp"/>
 
             </LinearLayout>
@@ -340,6 +340,22 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:text="submit"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/goLogin"
+                    android:layout_width="100dp"
+                    android:layout_height="35dp"
+                    android:gravity="center"
+                    android:textColor="@color/blue"
+                    android:background="@color/aqua"
+                    android:text="Login"/>
 
             </LinearLayout>
 
