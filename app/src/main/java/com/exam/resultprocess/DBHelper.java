@@ -33,6 +33,21 @@ public class DBHelper extends SQLiteOpenHelper {
             "imageName TEXT, " +
             "extension TEXT)";
 
+    private String results = "CREATE TABLE Results(" +
+            "fullName TEXT, " +
+            "email TEXT, " +
+            "gender TEXT, " +
+            "identity TEXT, " +
+            "mobile TEXT, " +
+            "type TEXT, " +
+            "designationOrCourseName TEXT, " +
+            "attendance TEXT, " +
+            "assignment TEXT, " +
+            "presentation TEXT, " +
+            "midTerm TEXT, " +
+            "finalMarks TEXT, " +
+            "total TEXT)";
+
     public DBHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
@@ -42,6 +57,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         try {
             db.execSQL(users);
+            db.execSQL(results);
         }catch (Exception e){
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -50,6 +66,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS Users");
+        db.execSQL("DROP TABLE IF EXISTS Results");
     }
 
     public void insertUserData(Users users){
