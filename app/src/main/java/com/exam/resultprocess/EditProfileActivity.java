@@ -42,7 +42,7 @@ public class EditProfileActivity extends AppCompatActivity {
     final String secretKey = "ssshhhhhhhhhhh!!!!";
 
     EditText editFullName, editEmail, editMobile, editPassword, editConfirmPassword;
-    TextView editGender, editIdentity, editType;
+    TextView editGender, editBatchCode, editIdentity, editType;
     Spinner editDesignationOrCourseName;
     CircleImageView imageView;
     private static final int PICK_IMAGE = 1;
@@ -64,6 +64,7 @@ public class EditProfileActivity extends AppCompatActivity {
         editIdentity = (TextView) findViewById(R.id.editIdentity);
         editType = (TextView) findViewById(R.id.editType);
         editGender = (TextView) findViewById(R.id.editGender);
+        editBatchCode = (TextView) findViewById(R.id.editBatchCode);
         editMobile = (EditText) findViewById(R.id.editMobile);
         editPassword = (EditText) findViewById(R.id.editPassword);
         editConfirmPassword = (EditText) findViewById(R.id.editConfirmPassword);
@@ -111,6 +112,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         users.setFullName(editFullName.getText().toString().trim());
                         users.setEmail(editEmail.getText().toString().trim());
                         users.setGender(editGender.getText().toString());
+                        users.setBatchCode(editBatchCode.getText().toString().trim());
                         users.setIdentity(editIdentity.getText().toString().trim());
                         users.setType(editType.getText().toString());
                         users.setDesignationOrCourse(String.valueOf(editDesignationOrCourseName.getSelectedItem()));
