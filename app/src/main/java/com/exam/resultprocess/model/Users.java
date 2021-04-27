@@ -15,6 +15,7 @@ public class Users implements Parcelable {
     private String extension = "";
     private String password = "";
     private String confirmPassword = "";
+    private String createdOrUpdatedTime = "";
 
     public Users() {
 
@@ -32,6 +33,7 @@ public class Users implements Parcelable {
         extension = in.readString();
         password = in.readString();
         confirmPassword = in.readString();
+        createdOrUpdatedTime = in.readString();
     }
 
     public static final Creator<Users> CREATOR = new Creator<Users>() {
@@ -134,6 +136,14 @@ public class Users implements Parcelable {
         this.confirmPassword = confirmPassword;
     }
 
+    public String getCreatedOrUpdatedTime() {
+        return createdOrUpdatedTime;
+    }
+
+    public void setCreatedOrUpdatedTime(String createdOrUpdatedTime) {
+        this.createdOrUpdatedTime = createdOrUpdatedTime;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -151,5 +161,6 @@ public class Users implements Parcelable {
         dest.writeString(extension);
         dest.writeString(password);
         dest.writeString(confirmPassword);
+        dest.writeString(createdOrUpdatedTime);
     }
 }

@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ResultProcess">
-        <activity android:name=".TeacherSetupActivity"></activity>
+        <activity android:name=".BatchCreateActivity"></activity>
+        <activity android:name=".TeacherSetupActivity" />
         <activity android:name=".InputResultActivity" />
         <activity android:name=".DashboardActivity" />
         <activity android:name=".EditProfileActivity" />

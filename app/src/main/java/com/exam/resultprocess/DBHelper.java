@@ -31,7 +31,8 @@ public class DBHelper extends SQLiteOpenHelper {
             "password TEXT, " +
             "confirmPassword TEXT, " +
             "imageName TEXT, " +
-            "extension TEXT)";
+            "extension TEXT, " +
+            "createdOrUpdateTime TEXT)";
 
     private String results = "CREATE TABLE Results(" +
             "fullName TEXT, " +
@@ -39,14 +40,31 @@ public class DBHelper extends SQLiteOpenHelper {
             "gender TEXT, " +
             "identity TEXT, " +
             "mobile TEXT, " +
-            "type TEXT, " +
             "designationOrCourseName TEXT, " +
+            "semester TEXT, " +
             "attendance TEXT, " +
             "assignment TEXT, " +
             "presentation TEXT, " +
             "midTerm TEXT, " +
             "finalMarks TEXT, " +
-            "total TEXT)";
+            "total TEXT, " +
+            "createdOrUpdateTime TEXT)";
+
+    private String batchs = "CREATE TABLE Batchs(" +
+            "batchCode TEXT, " +
+            "batchName TEXT, " +
+            "batchYear TEXT, " +
+            "createdOrUpdateTime TEXT)";
+
+    private String teacherSetups = "CREATE TABLE TeacherSetups(" +
+            "teacherId TEXT, " +
+            "teacherName TEXT, " +
+            "designation TEXT, " +
+            "batchCode TEXT, " +
+            "courseName TEXT, " +
+            "subjectCode TEXT, " +
+            "subjectName TEXT, " +
+            "createdOrUpdateTime TEXT)";
 
     public DBHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -58,6 +76,8 @@ public class DBHelper extends SQLiteOpenHelper {
         try {
             db.execSQL(users);
             db.execSQL(results);
+            db.execSQL(batchs);
+            db.execSQL(teacherSetups);
         }catch (Exception e){
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -67,16 +87,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS Users");
         db.execSQL("DROP TABLE IF EXISTS Results");
+        db.execSQL("DROP TABLE IF EXISTS Batchs");
+        db.execSQL("DROP TABLE IF EXISTS TeacherSetups");
     }
 
     public void insertUserData(Users users){
         try{
             SQLiteDatabase db = this.getWritableDatabase();
-//            Bitmap imageToStoreBitmap = users.getImage();
-//            byteArrayOutputStream = new ByteArrayOutputStream();
-//            imageToStoreBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-//            imageBytes = byteArrayOutputStream.toByteArray();
-
             ContentValues values = new ContentValues();
             values.put("fullName", users.getFullName());
             values.put("email", users.getEmail());
@@ -89,13 +106,91 @@ public class DBHelper extends SQLiteOpenHelper {
             values.put("confirmPassword", users.getConfirmPassword());
             values.put("imageName", users.getImageName());
             values.put("extension", users.getExtension());
+            values.put("createdOrUpdatedTime", users.getCreatedOrUpdatedTime());
 
             long result = db.insert("Users", null, values);
             if(result != -1){
                 Toast.makeText(context, "Data insert successfully", Toast.LENGTH_LONG).show();
                 db.close();
             }else{
-                Toast.makeText(context, "Fail data insert", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Fail data inserted", Toast.LENGTH_LONG).show();
+            }
+        }catch (Exception e){
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void insertResultData(Results results){
+        try{
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put("fullName", results.getFullName());
+            values.put("email", results.getEmail());
+            values.put("gender", results.getGender());
+            values.put("identity", results.getStudentId());
+            values.put("mobile", results.getMobile());
+            values.put("designationOrCourseName", results.getDesignationOrCourseName());
+            values.put("semester", results.getSemester());
+            values.put("attendance", results.getAttendance());
+            values.put("assignment", results.getAssignment());
+            values.put("presentation", results.getPresentation());
+            values.put("midTerm", results.getMidTerm());
+            values.put("finalMarks", results.getFinalMarks());
+            values.put("total", results.getTotal());
+            values.put("createdOrUpdatedTime", results.getCreatedOrUpdatedTime());
+
+            long result = db.insert("Results", null, values);
+            if(result != -1){
+                Toast.makeText(context, "Data insert successfully", Toast.LENGTH_LONG).show();
+                db.close();
+            }else{
+                Toast.makeText(context, "Fail data inserted", Toast.LENGTH_LONG).show();
+            }
+        }catch (Exception e){
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void insertBatchData(BatchSetup batchSetup){
+        try{
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put("batchCode", batchSetup.getBatchCode());
+            values.put("batchName", batchSetup.getBatchName());
+            values.put("batchYear", batchSetup.getBatchYear());
+            values.put("createdOrUpdatedTime", batchSetup.getCreatedOrUpdatedTime());
+
+            long result = db.insert("Batchs", null, values);
+            if(result != -1){
+                Toast.makeText(context, "Data insert successfully", Toast.LENGTH_LONG).show();
+                db.close();
+            }else{
+                Toast.makeText(context, "Fail data inserted", Toast.LENGTH_LONG).show();
+            }
+        }catch (Exception e){
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void insertTeacherSetupData(TeacherSetup teacherSetup){
+        try{
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put("teacherId", teacherSetup.getTeacherId());
+            values.put("teacherName", teacherSetup.getTeacherName());
+            values.put("designation", teacherSetup.getDesignation());
+            values.put("batchCode", teacherSetup.getBatchCode());
+            values.put("courseName", teacherSetup.getCourseName());
+            values.put("subjectCode", teacherSetup.getSubjectCode());
+            values.put("subjectName", teacherSetup.getSubjectName());
+            values.put("createdOrUpdatedTime", teacherSetup.getCreatedOrUpdatedTime());
+
+            long result = db.insert("TeacherSetups", null, values);
+            if(result != -1){
+                Toast.makeText(context, "Data insert successfully", Toast.LENGTH_LONG).show();
+                db.close();
+            }else{
+                Toast.makeText(context, "Fail data inserted", Toast.LENGTH_LONG).show();
             }
         }catch (Exception e){
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();

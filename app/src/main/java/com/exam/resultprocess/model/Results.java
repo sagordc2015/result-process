@@ -5,10 +5,11 @@ import android.os.Parcelable;
 
 public class Results implements Parcelable {
     private String studentId = "";
+    private String fullName = "";
     private String email = "";
     private String gender = "";
     private String mobile = "";
-    private String course = "";
+    private String designationOrCourseName = "";
     private String semester = "";
     private String attendance = "";
     private String assignment = "";
@@ -16,6 +17,7 @@ public class Results implements Parcelable {
     private String midTerm = "";
     private String finalMarks = "";
     private String total = "";
+    private String createdOrUpdatedTime = "";
 
     public Results(){
 
@@ -23,10 +25,11 @@ public class Results implements Parcelable {
 
     protected Results(Parcel in) {
         studentId = in.readString();
+        fullName = in.readString();
         email = in.readString();
         gender = in.readString();
         mobile = in.readString();
-        course = in.readString();
+        designationOrCourseName = in.readString();
         semester = in.readString();
         attendance = in.readString();
         assignment = in.readString();
@@ -34,6 +37,7 @@ public class Results implements Parcelable {
         midTerm = in.readString();
         finalMarks = in.readString();
         total = in.readString();
+        createdOrUpdatedTime = in.readString();
     }
 
     public static final Creator<Results> CREATOR = new Creator<Results>() {
@@ -54,6 +58,14 @@ public class Results implements Parcelable {
 
     public void setStudentId(String studentId) {
         this.studentId = studentId;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -80,12 +92,12 @@ public class Results implements Parcelable {
         this.mobile = mobile;
     }
 
-    public String getCourse() {
-        return course;
+    public String getDesignationOrCourseName() {
+        return designationOrCourseName;
     }
 
-    public void setCourse(String course) {
-        this.course = course;
+    public void setDesignationOrCourseName(String designationOrCourseName) {
+        this.designationOrCourseName = designationOrCourseName;
     }
 
     public String getSemester() {
@@ -144,6 +156,14 @@ public class Results implements Parcelable {
         this.total = total;
     }
 
+    public String getCreatedOrUpdatedTime() {
+        return createdOrUpdatedTime;
+    }
+
+    public void setCreatedOrUpdatedTime(String createdOrUpdatedTime) {
+        this.createdOrUpdatedTime = createdOrUpdatedTime;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -152,10 +172,11 @@ public class Results implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(studentId);
+        dest.writeString(fullName);
         dest.writeString(email);
         dest.writeString(gender);
         dest.writeString(mobile);
-        dest.writeString(course);
+        dest.writeString(designationOrCourseName);
         dest.writeString(semester);
         dest.writeString(attendance);
         dest.writeString(assignment);
@@ -163,5 +184,6 @@ public class Results implements Parcelable {
         dest.writeString(midTerm);
         dest.writeString(finalMarks);
         dest.writeString(total);
+        dest.writeString(createdOrUpdatedTime);
     }
 }
