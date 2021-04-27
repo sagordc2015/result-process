@@ -32,6 +32,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -160,6 +162,12 @@ public class RegistrationActivity extends AppCompatActivity {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+
+                        LocalDateTime dateObj = LocalDateTime.now();
+                        DateTimeFormatter formatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+                        String formattedDate = dateObj.format(formatObj);
+                        users.setCreatedOrUpdatedTime(formattedDate);
+
                         dbHelper.insertUserData(users);
                         clearUser();
 //                        Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
