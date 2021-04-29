@@ -40,6 +40,14 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        cardViewBatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, BatchCreateActivity.class);
+                startActivity(intent);
+            }
+        });
+
         cardViewTeacher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

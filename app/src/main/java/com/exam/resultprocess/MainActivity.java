@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new DBHelper(this);
 
         username = (EditText) findViewById(R.id.username);
-        username.requestFocus();
+//        username.requestFocus();
         password = (EditText) findViewById(R.id.password);
         login = (Button) findViewById(R.id.buttonLogin);
         register = (TextView) findViewById(R.id.register);

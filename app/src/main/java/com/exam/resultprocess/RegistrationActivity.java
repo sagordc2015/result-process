@@ -44,10 +44,10 @@ public class RegistrationActivity extends AppCompatActivity {
     final String secretKey = "ssshhhhhhhhhhh!!!!";
 
     EditText fullName, email, identity, mobile, password, confirmPassword;
-    TextView login;
+    TextView designationOrCourseLevel, login;
     RadioGroup genderRadioGroup;
     RadioButton genderRadioButton;
-    Spinner type, designationOrCourseName;
+    Spinner type, designationOrCourseName, batchCode;
     CircleImageView imageView;
     private static final int PICK_IMAGE = 1;
     Uri imageUri;
@@ -70,6 +70,7 @@ public class RegistrationActivity extends AppCompatActivity {
         confirmPassword = (EditText) findViewById(R.id.confirmPassword);
 
         login = (TextView) findViewById(R.id.goLogin);
+        designationOrCourseLevel = (TextView) findViewById(R.id.designationOrCourseLavel);
 
         genderRadioGroup = (RadioGroup) findViewById(R.id.genderGroup);
 
@@ -106,8 +107,22 @@ public class RegistrationActivity extends AppCompatActivity {
                     Toast.makeText(RegistrationActivity.this, "Please Full Name is Required!!!", Toast.LENGTH_LONG).show();
                 } else if (email.getText().toString().equals("")) {
                     Toast.makeText(RegistrationActivity.this, "Please Email is Required!!!", Toast.LENGTH_LONG).show();
+                } else if (genderRadioGroup.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(RegistrationActivity.this, "Please Gender is Required!!!", Toast.LENGTH_LONG).show();
                 } else if (identity.getText().toString().equals("")) {
                     Toast.makeText(RegistrationActivity.this, "Please ID is Required!!!", Toast.LENGTH_LONG).show();
+                } else if (identity.getText().toString().length() < 4) {
+                    Toast.makeText(RegistrationActivity.this, "Please ID length 4 digit!!!", Toast.LENGTH_LONG).show();
+                } else if ((identity.getText().toString().length() == 4) && (Integer.parseInt(identity.getText().toString().substring(2, 4)) > 40) || Integer.parseInt(identity.getText().toString().substring(2, 4)) < 1) {
+                    Toast.makeText(RegistrationActivity.this, "Please ID must between 1-40 number!!!", Toast.LENGTH_LONG).show();
+                } else if (String.valueOf(type.getSelectedItem()).equals("Select Type")) {
+                    Toast.makeText(RegistrationActivity.this, "Type is Required!!!", Toast.LENGTH_LONG).show();
+                } else if ((String.valueOf(type.getSelectedItem()) == "Student") && (!String.valueOf((String)batchCode.getSelectedItem()).equals(identity.getText().toString().substring(0, 2)))) {
+                    Toast.makeText(RegistrationActivity.this, "Batch & Identity not match!!!", Toast.LENGTH_LONG).show();
+                } else if ((String.valueOf(type.getSelectedItem()) == "Teacher") || (String.valueOf(designationOrCourseName.getSelectedItem()) == "Select Designation")) {
+                    Toast.makeText(RegistrationActivity.this, "Designation is Required!!!", Toast.LENGTH_LONG).show();
+                } else if ((String.valueOf(type.getSelectedItem()) == "Student") && (String.valueOf(designationOrCourseName.getSelectedItem()) == "Select Course Name")) {
+                    Toast.makeText(RegistrationActivity.this, "Course Name is Required!!!", Toast.LENGTH_LONG).show();
                 } else if (password.getText().toString().equals("")) {
                     Toast.makeText(RegistrationActivity.this, "Please Password is Required!!!", Toast.LENGTH_LONG).show();
                 } else if (confirmPassword.getText().toString().equals("")) {
@@ -124,6 +139,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         users.setEmail(email.getText().toString().trim());
                         users.setGender(genderRadioButton.getText().toString());
                         users.setIdentity(identity.getText().toString().trim());
+                        users.setMobile(mobile.getText().toString().trim());
                         users.setType(String.valueOf(type.getSelectedItem()));
                         users.setDesignationOrCourse(String.valueOf(designationOrCourseName.getSelectedItem()));
 //                        users.setPassword(password.getText().toString());
@@ -210,21 +226,34 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 designationOrCourseName = (Spinner) findViewById(R.id.designationOrCourseName);
+                batchCode = (Spinner) findViewById(R.id.batchCode);
 
                 List<String> listCourse = new ArrayList<>();
+                List<String> listBatch = new ArrayList<>();
 
                 if (String.valueOf(type.getSelectedItem()) == "Teacher") {
+                    designationOrCourseLevel.setText("Designation");
                     listCourse.add("Select Designation");
                     listCourse.add("Assistant Professor");
                     listCourse.add("Associate Professor");
                     listCourse.add("Director");
                     listCourse.add("Lecturer");
                     listCourse.add("Professor");
+                    batchCode.setEnabled(false);
                 } else if (String.valueOf(type.getSelectedItem()) == "Student") {
+                    designationOrCourseLevel.setText("Course");
                     listCourse.add("Select Course Name");
                     listCourse.add("PGDIT");
                     listCourse.add("MIT");
+                    listBatch.add("Select Batch");
+                    listBatch = dbHelper.getBatchList();
+                    batchCode.setEnabled(true);
                 }
+
+                ArrayAdapter<String> dataAdapterBatch = new ArrayAdapter<String>(RegistrationActivity.this,
+                        android.R.layout.simple_spinner_item, listBatch);
+                dataAdapterBatch.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                batchCode.setAdapter(dataAdapterBatch);
 
                 ArrayAdapter<String> dataAdapterCourse = new ArrayAdapter<String>(RegistrationActivity.this,
                         android.R.layout.simple_spinner_item, listCourse);

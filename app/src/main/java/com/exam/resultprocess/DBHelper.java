@@ -10,6 +10,8 @@ import android.widget.Toast;
 import com.exam.resultprocess.model.*;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -32,7 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "confirmPassword TEXT, " +
             "imageName TEXT, " +
             "extension TEXT, " +
-            "createdOrUpdateTime TEXT)";
+            "createdOrUpdatedTime TEXT)";
 
     private String results = "CREATE TABLE Results(" +
             "fullName TEXT, " +
@@ -48,13 +50,17 @@ public class DBHelper extends SQLiteOpenHelper {
             "midTerm TEXT, " +
             "finalMarks TEXT, " +
             "total TEXT, " +
-            "createdOrUpdateTime TEXT)";
+            "cgpa TEXT, " +
+            "grade TEXT, " +
+            "remarks TEXT, " +
+            "createdOrUpdatedTime TEXT)";
 
     private String batchs = "CREATE TABLE Batchs(" +
+            "courseName TEXT, " +
             "batchCode TEXT, " +
             "batchName TEXT, " +
             "batchYear TEXT, " +
-            "createdOrUpdateTime TEXT)";
+            "createdOrUpdatedTime TEXT)";
 
     private String teacherSetups = "CREATE TABLE TeacherSetups(" +
             "teacherId TEXT, " +
@@ -64,7 +70,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "courseName TEXT, " +
             "subjectCode TEXT, " +
             "subjectName TEXT, " +
-            "createdOrUpdateTime TEXT)";
+            "createdOrUpdatedTime TEXT)";
 
     public DBHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -137,6 +143,9 @@ public class DBHelper extends SQLiteOpenHelper {
             values.put("midTerm", results.getMidTerm());
             values.put("finalMarks", results.getFinalMarks());
             values.put("total", results.getTotal());
+            values.put("cgpa", results.getCgpa());
+            values.put("grade", results.getGrade());
+            values.put("remarks", results.getRemarks());
             values.put("createdOrUpdatedTime", results.getCreatedOrUpdatedTime());
 
             long result = db.insert("Results", null, values);
@@ -155,6 +164,7 @@ public class DBHelper extends SQLiteOpenHelper {
         try{
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues values = new ContentValues();
+            values.put("courseName", batchSetup.getCourseName());
             values.put("batchCode", batchSetup.getBatchCode());
             values.put("batchName", batchSetup.getBatchName());
             values.put("batchYear", batchSetup.getBatchYear());
@@ -203,12 +213,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
             ContentValues values = new ContentValues();
             values.put("fullName", users.getFullName());
+            values.put("email", users.getEmail());
+            values.put("gender", users.getGender());
             values.put("mobile", users.getMobile());
+            values.put("designationOrCourse", users.getDesignationOrCourse());
             values.put("imageName", users.getImageName());
             values.put("password", users.getPassword());
             values.put("confirmPassword", users.getConfirmPassword());
 
-            long result = db.update("Users", values, "email = ?", new String[]{users.getEmail()});
+            long result = db.update("Users", values, "identity = ?", new String[]{users.getIdentity()});
             if(result != -1){
                 Toast.makeText(context, "Data Update successfully", Toast.LENGTH_LONG).show();
                 db.close();
@@ -230,6 +243,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 users.setFullName(cursor.getString(cursor.getColumnIndex("fullName")));
                 users.setEmail(cursor.getString(cursor.getColumnIndex("email")));
                 users.setGender(cursor.getString(cursor.getColumnIndex("gender")));
+                users.setMobile(cursor.getString(cursor.getColumnIndex("mobile")));
                 users.setIdentity(cursor.getString(cursor.getColumnIndex("identity")));
                 users.setType(cursor.getString(cursor.getColumnIndex("type")));
                 users.setDesignationOrCourse(cursor.getString(cursor.getColumnIndex("designationOrCourseName")));
@@ -258,6 +272,46 @@ public class DBHelper extends SQLiteOpenHelper {
         }else {
             return false;
         }
+    }
+
+    // USERS TABLE
+
+    public List<String> getTeacherList(){
+        List<String> lists = new ArrayList<>();
+        lists.add("Select Teacher");
+        Cursor cursor = null;
+        try{
+            SQLiteDatabase db = this.getReadableDatabase();
+            String sql = "SELECT * FROM Users WHERE type = ? AND identity != ?";
+            cursor = db.rawQuery(sql, new String[]{"Teacher", "0000"});
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                lists.add(cursor.getString(cursor.getColumnIndex("identity")) + " - " + cursor.getString(cursor.getColumnIndex("fullName")));
+            }
+            System.out.println("SIZE : " + lists.size());
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return lists;
+    }
+
+    // BATCHS TABLE
+
+    public List<String> getBatchList(){
+        List<String> lists = new ArrayList<>();
+        lists.add("Select Batch");
+        Cursor cursor = null;
+        try{
+            SQLiteDatabase db = this.getReadableDatabase();
+            String sql = "SELECT * FROM Batchs";
+            cursor = db.rawQuery(sql, new String[]{});
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                lists.add(cursor.getString(cursor.getColumnIndex("batchCode")));
+            }
+            System.out.println("SIZE : " + lists.size());
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return lists;
     }
 
 }

@@ -97,6 +97,8 @@ public class EditProfileActivity extends AppCompatActivity {
                     Toast.makeText(EditProfileActivity.this, "Please Full Name is Required!!!", Toast.LENGTH_LONG).show();
                 } else if (editEmail.getText().toString().equals("")) {
                     Toast.makeText(EditProfileActivity.this, "Please Email is Required!!!", Toast.LENGTH_LONG).show();
+                } else if ((String.valueOf(editType.getText().toString()) == "Student") || (String.valueOf(editDesignationOrCourseName.getSelectedItem()) == "Select Course Name")) {
+                    Toast.makeText(EditProfileActivity.this, "Course Name is Required!!!", Toast.LENGTH_LONG).show();
                 } else if (editPassword.getText().toString().equals("")) {
                     Toast.makeText(EditProfileActivity.this, "Please Password is Required!!!", Toast.LENGTH_LONG).show();
                 } else if (editConfirmPassword.getText().toString().equals("")) {
@@ -111,7 +113,8 @@ public class EditProfileActivity extends AppCompatActivity {
                         Users users = new Users();
                         users.setFullName(editFullName.getText().toString().trim());
                         users.setEmail(editEmail.getText().toString().trim());
-                        users.setGender(editGender.getText().toString());
+                        users.setGender(editGender.getText().toString().trim());
+                        users.setMobile(editMobile.getText().toString().trim());
                         users.setBatchCode(editBatchCode.getText().toString().trim());
                         users.setIdentity(editIdentity.getText().toString().trim());
                         users.setType(editType.getText().toString());

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
+    android:gravity="center_vertical|center_horizontal"
     android:background="@drawable/iit_background"
     tools:context=".BatchCreateActivity">
 
@@ -27,7 +27,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="center_vertical|center_horizontal"
         android:layout_marginTop="15dp"
         android:orientation="horizontal">
 
@@ -40,19 +40,19 @@
             android:background="@color/white"
             android:gravity="center"/>
         <Spinner
-            android:id="@+id/type"
+            android:id="@+id/courseType"
             android:layout_width="150dp"
             android:layout_height="45dp"
             android:gravity="center"
             android:background="@color/white"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:spinnerMode="dropdown"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="center_vertical|center_horizontal"
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
@@ -67,13 +67,14 @@
             />
 
         <EditText
+            android:id="@+id/batchNumber"
             android:layout_width="150dp"
             android:layout_height="45dp"
             android:layout_marginLeft="10dp"
             android:hint="Batch Number"
             android:inputType="number"
             android:background="@color/white"
-            android:maxLength="4"
+            android:maxLength="2"
             android:textColorHint="@color/black"
             android:gravity="center"/>
     </LinearLayout>
@@ -81,7 +82,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="center_vertical|center_horizontal"
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
@@ -96,6 +97,7 @@
             />
 
         <EditText
+            android:id="@+id/batchName"
             android:layout_width="150dp"
             android:layout_height="45dp"
             android:layout_marginLeft="10dp"
@@ -109,11 +111,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="center_vertical|center_horizontal"
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/batchYearLevel"
             android:layout_width="150dp"
             android:layout_height="45dp"
             android:text="Batch Year"
@@ -124,6 +127,7 @@
             />
 
         <EditText
+            android:id="@+id/batchYear"
             android:layout_width="150dp"
             android:layout_height="45dp"
             android:layout_marginLeft="10dp"
@@ -137,10 +141,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
+        android:gravity="center_vertical|center_horizontal">
 
         <Button
-            android:id="@+id/registrationSubmit"
+            android:id="@+id/batchSubmit"
             android:layout_marginTop="10dp"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
