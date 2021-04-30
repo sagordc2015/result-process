@@ -6,18 +6,32 @@ import androidx.cardview.widget.CardView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class DashboardActivity extends AppCompatActivity {
-    String result;
-    Button inputResult;
+import com.exam.resultprocess.model.Users;
 
-    CardView cardViewBatch, cardViewTeacher;
+import java.io.File;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class DashboardActivity extends AppCompatActivity {
+    private Session session;
+
+    CircleImageView imageViewProfile;
+    ImageView homeIcon;
+    TextView usernameToolbar;
+
+    CardView cardViewBatch, cardViewTeacher, cardViewShowResult, cardViewInputResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,15 +40,60 @@ public class DashboardActivity extends AppCompatActivity {
         setSupportActionBar(findViewById(R.id.toolbarId));
         cardViewBatch = (CardView) findViewById(R.id.cardViewBatch);
         cardViewTeacher = (CardView) findViewById(R.id.cardViewTeacher);
+        cardViewShowResult = (CardView) findViewById(R.id.cardViewShowResult);
+        cardViewInputResult = (CardView) findViewById(R.id.cardViewInputResult);
         cardViewBatch.setRadius(20F);
         cardViewTeacher.setRadius(30F);
+        cardViewShowResult.setRadius(30F);
+        cardViewInputResult.setRadius(30F);
 
-        inputResult = (Button) findViewById(R.id.inputResult);
+        session = new Session(this);
 
-        inputResult.setOnClickListener(new View.OnClickListener() {
+        imageViewProfile = (CircleImageView) findViewById(R.id.profile_image);
+        homeIcon = (ImageView) findViewById(R.id.homeIcon);
+        usernameToolbar = (TextView) findViewById(R.id.usernameToolbar);
+
+        usernameToolbar.setText(session.get("username"));
+        String imagePath = session.get("imagePath");
+        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+        imageViewProfile.setImageBitmap(bitmap);
+        String type = session.get("type");
+        String userid = session.get("userid");
+        if((type.equals("Teacher")) && (userid.equals("1234"))){
+            cardViewBatch.setVisibility(View.VISIBLE);
+            cardViewTeacher.setVisibility(View.VISIBLE);
+            cardViewShowResult.setVisibility(View.VISIBLE);
+            cardViewInputResult.setVisibility(View.GONE);
+        }else if((type.equals("Teacher")) && (!userid.equals("1234"))){
+            cardViewBatch.setVisibility(View.GONE);
+            cardViewTeacher.setVisibility(View.GONE);
+            cardViewShowResult.setVisibility(View.GONE);
+            cardViewInputResult.setVisibility(View.VISIBLE);
+        }else{
+            cardViewBatch.setVisibility(View.GONE);
+            cardViewTeacher.setVisibility(View.GONE);
+            cardViewShowResult.setVisibility(View.GONE);
+            cardViewInputResult.setVisibility(View.GONE);
+        }
+
+        if(getIntent().getExtras() != null){
+            Users users = (Users) getIntent().getParcelableExtra("user");
+            System.out.println(users.getExtension() + " ---------- ");
+            setToolbarData(users);
+        }
+
+        homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, DashboardActivity.class);
 
+                startActivity(intent);
+            }
+        });
+
+        cardViewInputResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent(DashboardActivity.this, InputResultActivity.class);
                 startActivity(intent);
             }
@@ -80,4 +139,19 @@ public class DashboardActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public void setToolbarData(Users users){
+        usernameToolbar.setText(users.getFullName());
+        File filePath = Environment.getExternalStorageDirectory();
+        File dir = new File(filePath.getAbsolutePath()+"/userImages/");
+        System.out.println(dir + " *********");
+        System.out.println(users.getIdentity() + " *********" + users.getExtension());
+        File file = new File(dir, users.getIdentity()+users.getExtension());
+        System.out.println(file.getPath() + " *********");
+        String imagePath = file.getPath();
+        session.set("imagePath", imagePath);
+        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+        imageViewProfile.setImageBitmap(bitmap);
+    }
+
 }

@@ -119,7 +119,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     Toast.makeText(RegistrationActivity.this, "Type is Required!!!", Toast.LENGTH_LONG).show();
                 } else if ((String.valueOf(type.getSelectedItem()) == "Student") && (!String.valueOf((String)batchCode.getSelectedItem()).equals(identity.getText().toString().substring(0, 2)))) {
                     Toast.makeText(RegistrationActivity.this, "Batch & Identity not match!!!", Toast.LENGTH_LONG).show();
-                } else if ((String.valueOf(type.getSelectedItem()) == "Teacher") || (String.valueOf(designationOrCourseName.getSelectedItem()) == "Select Designation")) {
+                } else if ((String.valueOf(type.getSelectedItem()) == "Teacher") && (String.valueOf(designationOrCourseName.getSelectedItem()) == "Select Designation")) {
                     Toast.makeText(RegistrationActivity.this, "Designation is Required!!!", Toast.LENGTH_LONG).show();
                 } else if ((String.valueOf(type.getSelectedItem()) == "Student") && (String.valueOf(designationOrCourseName.getSelectedItem()) == "Select Course Name")) {
                     Toast.makeText(RegistrationActivity.this, "Course Name is Required!!!", Toast.LENGTH_LONG).show();
@@ -139,7 +139,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         users.setEmail(email.getText().toString().trim());
                         users.setGender(genderRadioButton.getText().toString());
                         users.setIdentity(identity.getText().toString().trim());
-                        users.setMobile(mobile.getText().toString().trim());
+                        users.setMobile("01" + mobile.getText().toString().trim());
                         users.setType(String.valueOf(type.getSelectedItem()));
                         users.setDesignationOrCourse(String.valueOf(designationOrCourseName.getSelectedItem()));
 //                        users.setPassword(password.getText().toString());
@@ -185,9 +185,9 @@ public class RegistrationActivity extends AppCompatActivity {
                         users.setCreatedOrUpdatedTime(formattedDate);
 
                         dbHelper.insertUserData(users);
-                        clearUser();
-//                        Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
-//                        startActivity(intent);
+//                        clearUser();
+                        Intent intent = new Intent(RegistrationActivity.this, RegistrationActivity.class);
+                        startActivity(intent);
                     }
                 }
             }

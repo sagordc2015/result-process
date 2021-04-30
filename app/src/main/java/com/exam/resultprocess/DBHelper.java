@@ -53,6 +53,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "cgpa TEXT, " +
             "grade TEXT, " +
             "remarks TEXT, " +
+            "subjectCode TEXT, " +
             "createdOrUpdatedTime TEXT)";
 
     private String batchs = "CREATE TABLE Batchs(" +
@@ -146,6 +147,7 @@ public class DBHelper extends SQLiteOpenHelper {
             values.put("cgpa", results.getCgpa());
             values.put("grade", results.getGrade());
             values.put("remarks", results.getRemarks());
+            values.put("subjectCode", results.getSubjectCode());
             values.put("createdOrUpdatedTime", results.getCreatedOrUpdatedTime());
 
             long result = db.insert("Results", null, values);
@@ -274,8 +276,6 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    // USERS TABLE
-
     public List<String> getTeacherList(){
         List<String> lists = new ArrayList<>();
         lists.add("Select Teacher");
@@ -287,7 +287,6 @@ public class DBHelper extends SQLiteOpenHelper {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 lists.add(cursor.getString(cursor.getColumnIndex("identity")) + " - " + cursor.getString(cursor.getColumnIndex("fullName")));
             }
-            System.out.println("SIZE : " + lists.size());
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -307,11 +306,72 @@ public class DBHelper extends SQLiteOpenHelper {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 lists.add(cursor.getString(cursor.getColumnIndex("batchCode")));
             }
-            System.out.println("SIZE : " + lists.size());
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
         return lists;
     }
 
+    public boolean checkByBatchCode(String batchCode){
+        Cursor cursor = null;
+        try{
+            SQLiteDatabase db = this.getReadableDatabase();
+            String sql = "SELECT * FROM Batchs WHERE batchCode = ?";
+            cursor = db.rawQuery(sql, new String[]{batchCode});
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        if(cursor.moveToFirst()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public boolean checkByTeacher(String batchCode, String subjectCode){
+        Cursor cursor = null;
+        try{
+            SQLiteDatabase db = this.getReadableDatabase();
+            String sql = "SELECT * FROM TeacherSetups WHERE batchCode = ? AND subjectCode = ?";
+            cursor = db.rawQuery(sql, new String[]{batchCode, subjectCode});
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        if(cursor.moveToFirst()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public boolean checkByResult(String identity, String subjectCode){
+        Cursor cursor = null;
+        try{
+            SQLiteDatabase db = this.getReadableDatabase();
+            String sql = "SELECT * FROM Results WHERE identity = ? AND subjectCode = ?";
+            cursor = db.rawQuery(sql, new String[]{identity, subjectCode});
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        if(cursor.moveToFirst()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public TeacherSetup getBySubjectCode(String teacherId, String batchCode) {
+        TeacherSetup teacherSetup = new TeacherSetup();
+        try{
+            SQLiteDatabase db = this.getReadableDatabase();
+            String sql = "SELECT * FROM TeacherSetups WHERE teacherId = ? OR batchCode = ?";
+            Cursor cursor = db.rawQuery(sql, new String[]{teacherId, batchCode});
+            if(cursor.moveToFirst()){
+                teacherSetup.setSubjectCode(cursor.getString(cursor.getColumnIndex("subjectCode")));
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return teacherSetup;
+    }
 }

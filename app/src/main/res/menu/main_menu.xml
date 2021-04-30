@@ -7,10 +7,10 @@
         android:id="@+id/profileItem"
         android:title="Profile"
         android:icon="@drawable/ic_baseline_person_edit"
-        app:showAsAction="always"/>
+        app:showAsAction="never"/>
     <item
         android:id="@+id/logoutItem"
         android:title="Logout"
         android:icon="@drawable/ic_baseline_logout"
-        app:showAsAction="always"/>
+        app:showAsAction="never"/>
 </menu>

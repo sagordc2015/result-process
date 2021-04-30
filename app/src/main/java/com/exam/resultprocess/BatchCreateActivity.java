@@ -1,27 +1,42 @@
 package com.exam.resultprocess;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.exam.resultprocess.model.BatchSetup;
+import com.exam.resultprocess.model.Users;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class BatchCreateActivity extends AppCompatActivity {
+    private Session session;
+
+    CircleImageView imageViewProfile;
+    ImageView homeIcon;
+    TextView usernameToolbar;
 
     Spinner course;
     EditText batchCode, batchName, batchYear;
@@ -34,8 +49,19 @@ public class BatchCreateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_batch_create);
+        setSupportActionBar(findViewById(R.id.toolbarId));
 
         dbHelper = new DBHelper(this);
+        session = new Session(this);
+
+        imageViewProfile = (CircleImageView) findViewById(R.id.profile_image);
+        homeIcon = (ImageView) findViewById(R.id.homeIcon);
+        usernameToolbar = (TextView) findViewById(R.id.usernameToolbar);
+
+        usernameToolbar.setText(session.get("username"));
+        String imagePath = session.get("imagePath");
+        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+        imageViewProfile.setImageBitmap(bitmap);
 
         course = (Spinner) findViewById(R.id.courseType);
         batchCode = (EditText) findViewById(R.id.batchNumber);
@@ -44,6 +70,15 @@ public class BatchCreateActivity extends AppCompatActivity {
         batchYearLevel = (TextView) findViewById(R.id.batchYearLevel);
         batchSubmit = (Button) findViewById(R.id.batchSubmit);
         addItemsOnSpinner();
+
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BatchCreateActivity.this, DashboardActivity.class);
+
+                startActivity(intent);
+            }
+        });
 
         course.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -74,14 +109,19 @@ public class BatchCreateActivity extends AppCompatActivity {
                 }else if(batchCode.getText().toString().equals("")){
                     Toast.makeText(BatchCreateActivity.this, "Batch code is Required!!!", Toast.LENGTH_SHORT).show();
                 }else{
-                    BatchSetup batchSetup = new BatchSetup();
-                    batchSetup.setCourseName(String.valueOf(course.getSelectedItem()));
-                    batchSetup.setBatchCode(batchCode.getText().toString());
-                    batchSetup.setBatchName(batchName.getText().toString());
-                    batchSetup.setBatchYear(batchYear.getText().toString());
-                    batchSetup.setCreatedOrUpdatedTime(formattedDate);
+                    boolean check = dbHelper.checkByBatchCode(batchCode.getText().toString());
+                    if(check){
+                        Toast.makeText(BatchCreateActivity.this, "Batch code are already Exists!!!", Toast.LENGTH_SHORT).show();
+                    }else {
+                        BatchSetup batchSetup = new BatchSetup();
+                        batchSetup.setCourseName(String.valueOf(course.getSelectedItem()));
+                        batchSetup.setBatchCode(batchCode.getText().toString());
+                        batchSetup.setBatchName(batchName.getText().toString());
+                        batchSetup.setBatchYear(batchYear.getText().toString());
+                        batchSetup.setCreatedOrUpdatedTime(formattedDate);
 
-                    dbHelper.insertBatchData(batchSetup);
+                        dbHelper.insertBatchData(batchSetup);
+                    }
                 }
             }
         });
@@ -99,5 +139,28 @@ public class BatchCreateActivity extends AppCompatActivity {
         dataAdapterCourse.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         course.setAdapter(dataAdapterCourse);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.profileItem:
+                Toast.makeText(this, "Edit Profile Click", Toast.LENGTH_SHORT).show();
+                Intent intentProfile = new Intent(BatchCreateActivity.this, EditProfileActivity.class);
+                startActivity(intentProfile);
+                return true;
+            case R.id.logoutItem:
+                Intent intentLogout = new Intent(BatchCreateActivity.this, MainActivity.class);
+                startActivity(intentLogout);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

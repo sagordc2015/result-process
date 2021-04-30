@@ -20,6 +20,7 @@ public class Results implements Parcelable {
     private String cgpa = "";
     private String grade = "";
     private String remarks = "";
+    private String subjectCode = "";
     private String createdOrUpdatedTime = "";
 
     public Results(){
@@ -43,6 +44,7 @@ public class Results implements Parcelable {
         cgpa = in.readString();
         grade = in.readString();
         remarks = in.readString();
+        subjectCode = in.readString();
         createdOrUpdatedTime = in.readString();
     }
 
@@ -169,6 +171,7 @@ public class Results implements Parcelable {
     public void setCgpa(String cgpa) {
         this.cgpa = cgpa;
     }
+
     public String getGrade() {
         return grade;
     }
@@ -176,12 +179,21 @@ public class Results implements Parcelable {
     public void setGrade(String grade) {
         this.grade = grade;
     }
+
     public String getRemarks() {
         return remarks;
     }
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public String getSubjectCode() {
+        return subjectCode;
+    }
+
+    public void setSubjectCode(String subjectCode) {
+        this.subjectCode = subjectCode;
     }
 
     public String getCreatedOrUpdatedTime() {
@@ -215,6 +227,7 @@ public class Results implements Parcelable {
         dest.writeString(cgpa);
         dest.writeString(grade);
         dest.writeString(remarks);
+        dest.writeString(subjectCode);
         dest.writeString(createdOrUpdatedTime);
     }
 }

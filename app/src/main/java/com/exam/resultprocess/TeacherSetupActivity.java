@@ -1,14 +1,21 @@
 package com.exam.resultprocess;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +29,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class TeacherSetupActivity extends AppCompatActivity {
+    private Session session;
+
+    CircleImageView imageViewProfile;
+    ImageView homeIcon;
+    TextView usernameToolbar;
 
     Spinner spinnerTeacherId, spinnerBatchCode, spinnerCourseName, spinnerSubjectCode;
     TextView teacherName, designation;
@@ -34,8 +48,14 @@ public class TeacherSetupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_setup);
+        setSupportActionBar(findViewById(R.id.toolbarId));
 
         dbHelper = new DBHelper(this);
+        session = new Session(this);
+
+        imageViewProfile = (CircleImageView) findViewById(R.id.profile_image);
+        homeIcon = (ImageView) findViewById(R.id.homeIcon);
+        usernameToolbar = (TextView) findViewById(R.id.usernameToolbar);
 
         spinnerTeacherId = (Spinner) findViewById(R.id.spinnerTeacherId);
         spinnerBatchCode = (Spinner) findViewById(R.id.spinnerBatchCode);
@@ -47,43 +67,63 @@ public class TeacherSetupActivity extends AppCompatActivity {
 
         submitBtn = (Button) findViewById(R.id.submitTeacherSetup);
 
+        usernameToolbar.setText(session.get("username"));
+        String imagePath = session.get("imagePath");
+        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+        imageViewProfile.setImageBitmap(bitmap);
+
         addItemsOnSpinner();
+
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TeacherSetupActivity.this, DashboardActivity.class);
+                startActivity(intent);
+            }
+        });
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                
-                if(spinnerTeacherId.getSelectedItem() == "Select Teacher"){
-                    Toast.makeText(TeacherSetupActivity.this, "Teacher ID is Required!!!", Toast.LENGTH_SHORT).show();
-                }else if(spinnerBatchCode.getSelectedItem() == "Select Batch"){
-                    Toast.makeText(TeacherSetupActivity.this, "Batch is Required!!!", Toast.LENGTH_SHORT).show();
-                }else if(spinnerCourseName.getSelectedItem() == "Select Type"){
-                    Toast.makeText(TeacherSetupActivity.this, "Course Name is Required!!!", Toast.LENGTH_SHORT).show();
-                }else if(spinnerSubjectCode.getSelectedItem() == "Select Subject"){
-                    Toast.makeText(TeacherSetupActivity.this, "Subject is Required!!!", Toast.LENGTH_SHORT).show();
-                }else {
-                    TeacherSetup teacherSetup = new TeacherSetup();
-                    teacherSetup.setTeacherId(String.valueOf(spinnerTeacherId.getSelectedItem()));
-                    teacherSetup.setTeacherName(teacherName.getText().toString());
-                    teacherSetup.setDesignation(designation.getText().toString());
-                    teacherSetup.setBatchCode(String.valueOf(spinnerBatchCode.getSelectedItem()));
-                    teacherSetup.setCourseName(String.valueOf(spinnerCourseName.getSelectedItem()));
-                    String codeName = (String)spinnerSubjectCode.getSelectedItem();
-                    String[] subject = codeName.split(" - ", 0);
-                    teacherSetup.setSubjectCode(subject[0]);
-                    teacherSetup.setSubjectName(subject[1]);
 
-                    LocalDateTime dateObj = LocalDateTime.now();
-                    DateTimeFormatter formatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-                    String formattedDate = dateObj.format(formatObj);
-                    teacherSetup.setCreatedOrUpdatedTime(formattedDate);
+                String codeName = (String)spinnerSubjectCode.getSelectedItem();
+                String[] subject = codeName.split(" - ", 0);
+                boolean check = dbHelper.checkByTeacher(String.valueOf(spinnerBatchCode.getSelectedItem()), subject[0]);
+                if(check){
+                    Toast.makeText(TeacherSetupActivity.this, "This subject are already exists!!!", Toast.LENGTH_SHORT).show();
+                }else{
+                    if(spinnerTeacherId.getSelectedItem() == "Select Teacher"){
+                        Toast.makeText(TeacherSetupActivity.this, "Teacher ID is Required!!!", Toast.LENGTH_SHORT).show();
+                    }else if(spinnerBatchCode.getSelectedItem() == "Select Batch"){
+                        Toast.makeText(TeacherSetupActivity.this, "Batch is Required!!!", Toast.LENGTH_SHORT).show();
+                    }else if(spinnerCourseName.getSelectedItem() == "Select Type"){
+                        Toast.makeText(TeacherSetupActivity.this, "Course Name is Required!!!", Toast.LENGTH_SHORT).show();
+                    }else if(spinnerSubjectCode.getSelectedItem() == "Select Subject"){
+                        Toast.makeText(TeacherSetupActivity.this, "Subject is Required!!!", Toast.LENGTH_SHORT).show();
+                    }else {
+                        TeacherSetup teacherSetup = new TeacherSetup();
+                        teacherSetup.setTeacherId(String.valueOf(spinnerTeacherId.getSelectedItem()));
+                        teacherSetup.setTeacherName(teacherName.getText().toString());
+                        teacherSetup.setDesignation(designation.getText().toString());
+                        teacherSetup.setBatchCode(String.valueOf(spinnerBatchCode.getSelectedItem()));
+                        teacherSetup.setCourseName(String.valueOf(spinnerCourseName.getSelectedItem()));
+                        teacherSetup.setSubjectCode(subject[0]);
+                        teacherSetup.setSubjectName(subject[1]);
 
-                    dbHelper.insertTeacherSetupData(teacherSetup);
+                        LocalDateTime dateObj = LocalDateTime.now();
+                        DateTimeFormatter formatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+                        String formattedDate = dateObj.format(formatObj);
+                        teacherSetup.setCreatedOrUpdatedTime(formattedDate);
+
+                        dbHelper.insertTeacherSetupData(teacherSetup);
+
+                        Intent intent = new Intent(TeacherSetupActivity.this, TeacherSetupActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });
-
     }
 
     // add items into spinner dynamically
@@ -190,6 +230,29 @@ public class TeacherSetupActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.profileItem:
+                Toast.makeText(this, "Edit Profile Click", Toast.LENGTH_SHORT).show();
+                Intent intentProfile = new Intent(TeacherSetupActivity.this, EditProfileActivity.class);
+                startActivity(intentProfile);
+                return true;
+            case R.id.logoutItem:
+                Intent intentLogout = new Intent(TeacherSetupActivity.this, MainActivity.class);
+                startActivity(intentLogout);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

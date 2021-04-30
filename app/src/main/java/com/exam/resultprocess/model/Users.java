@@ -168,6 +168,7 @@ public class Users implements Parcelable {
         dest.writeString(identity);
         dest.writeString(type);
         dest.writeString(designationOrCourse);
+        dest.writeString(mobile);
         dest.writeString(imageName);
         dest.writeString(extension);
         dest.writeString(password);

@@ -142,19 +142,27 @@
                     android:textColor="@color/blue"
                     android:background="@color/white"
                     android:gravity="center"/>
+                <TextView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:gravity="center"
+                    android:text="01"
+                    android:textSize="18dp"
+                    android:textColorHint="@color/black"
+                    android:background="@color/white"
+                    android:layout_marginLeft="5dp" />
                 <EditText
                     android:id="@+id/mobile"
                     android:inputType="number"
-                    android:layout_width="225dp"
+                    android:layout_width="185dp"
                     android:layout_height="35dp"
                     android:gravity="center"
                     android:hint="Enter mobile number"
                     android:textSize="18dp"
+                    android:maxLength="9"
                     android:textColorHint="@color/black"
                     android:background="@color/white"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toEndOf="@+id/mobileLavel"
-                    android:layout_toRightOf="@+id/mobileLavel" />
+                    android:layout_marginLeft="5dp" />
             </LinearLayout>
 
             <LinearLayout
