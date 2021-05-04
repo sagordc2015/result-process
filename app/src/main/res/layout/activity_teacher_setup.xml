@@ -38,7 +38,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="35dp"
-                android:text="Teacher ID : "
+                android:text="Teacher ID"
                 android:background="@color/white"
                 android:gravity="center"
                 android:layout_marginLeft="20dp"
@@ -69,7 +69,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="35dp"
-                android:text="Teacher Name : "
+                android:text="Teacher Name"
                 android:background="@color/white"
                 android:gravity="center"
                 android:layout_marginLeft="20dp"
@@ -97,7 +97,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="35dp"
-                android:text="Designation : "
+                android:text="Designation"
                 android:gravity="center"
                 android:background="@color/white"
                 android:layout_marginLeft="20dp"
@@ -125,7 +125,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="35dp"
-                android:text="Batch Code : "
+                android:text="Batch Code"
                 android:gravity="center"
                 android:background="@color/white"
                 android:layout_marginLeft="20dp"
@@ -155,7 +155,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="35dp"
-                android:text="Course Name : "
+                android:text="Course Name"
                 android:gravity="center"
                 android:background="@color/white"
                 android:layout_marginLeft="20dp"
@@ -185,7 +185,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="35dp"
-                android:text="Subject Code : "
+                android:text="Subject Code"
                 android:gravity="center"
                 android:layout_marginLeft="20dp"
                 android:background="@color/white"
@@ -193,6 +193,36 @@
 
             <Spinner
                 android:id="@+id/spinnerSubjectCode"
+                android:inputType="number"
+                android:layout_width="195dp"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:hint="Subject Code"
+                android:textColorHint="@color/black"
+                android:background="@color/white"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="5dp"
+            >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:text="Semester "
+                android:gravity="center"
+                android:layout_marginLeft="20dp"
+                android:background="@color/white"
+                />
+
+            <Spinner
+                android:id="@+id/spinnerSemester"
                 android:inputType="number"
                 android:layout_width="195dp"
                 android:layout_height="35dp"

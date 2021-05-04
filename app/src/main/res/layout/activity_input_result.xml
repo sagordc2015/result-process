@@ -55,6 +55,7 @@
                         android:hint="Enter id"
                         android:gravity="center"
                         android:inputType="number"
+                        android:maxLength="4"
                         android:background="@color/white"
                         />
                     <Button
@@ -224,13 +225,13 @@
                         android:gravity="center"
                         android:background="@color/white"
                         />
-                    <Spinner
+                    <TextView
                         android:id="@+id/showSemester"
                         android:layout_width="200dp"
                         android:layout_height="45dp"
                         android:layout_marginLeft="5dp"
-                        android:background="@color/white"
-                        android:spinnerMode="dropdown"/>
+                        android:gravity="center"
+                        android:background="@color/white"/>
                 </LinearLayout>
 
                 <LinearLayout

@@ -2,9 +2,11 @@ package com.exam.resultprocess;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -24,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.exam.resultprocess.model.BatchSetup;
 import com.exam.resultprocess.model.Users;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -56,6 +59,7 @@ public class RegistrationActivity extends AppCompatActivity {
     Button submit;
 
     DBHelper dbHelper;
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +81,7 @@ public class RegistrationActivity extends AppCompatActivity {
         submit = (Button) findViewById(R.id.registrationSubmit);
 
         dbHelper = new DBHelper(this);
+        builder = new AlertDialog.Builder(this);
 
         addItemsOnSpinner();
         addListenerOnButton();
@@ -134,60 +139,73 @@ public class RegistrationActivity extends AppCompatActivity {
                     if (checkUser) {
                         Toast.makeText(RegistrationActivity.this, "Email Or ID Already Exist!!!", Toast.LENGTH_SHORT).show();
                     } else {
-                        Users users = new Users();
-                        users.setFullName(fullName.getText().toString().trim());
-                        users.setEmail(email.getText().toString().trim());
-                        users.setGender(genderRadioButton.getText().toString());
-                        users.setIdentity(identity.getText().toString().trim());
-                        users.setMobile("01" + mobile.getText().toString().trim());
-                        users.setType(String.valueOf(type.getSelectedItem()));
-                        users.setDesignationOrCourse(String.valueOf(designationOrCourseName.getSelectedItem()));
-//                        users.setPassword(password.getText().toString());
-                        System.out.println(HashMD5.passwordHashing(password.getText().toString().trim()));
-                        users.setPassword(HashMD5.passwordHashing(password.getText().toString().trim()));
-                        users.setConfirmPassword(HashMD5.passwordHashing(confirmPassword.getText().toString().trim()));
-//                        users.setConfirmPassword(confirmPassword.getText().toString());
-                        String encrypt = EncryptAndDecrypt.encrypt(identity.getText().toString().trim(), secretKey);
-                        System.out.println(encrypt + " *** ENCRYPT");
-                        String decrypt = EncryptAndDecrypt.decrypt(encrypt, secretKey);
-                        System.out.println(decrypt + " -- DECRYPT");
-                        users.setImageName(identity.getText().toString().trim());
-                        users.setExtension(".jpeg");
-//                        users.setImage(imageToStore);
-                        BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
-                        Bitmap bitmap1 = drawable.getBitmap();
-                        File filePath = Environment.getExternalStorageDirectory();
-                        File dir = new File(filePath.getAbsolutePath() + "/userImages/");
-                        dir.mkdir();
-                        File file = new File(dir, users.getIdentity() + users.getExtension());
-                        FileOutputStream outputStream = null;
-                        try {
-                            outputStream = new FileOutputStream(file);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                        bitmap1.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-                        Toast.makeText(RegistrationActivity.this, "Image store successfully", Toast.LENGTH_SHORT).show();
-                        try {
-                            outputStream.flush();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            outputStream.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        builder.setMessage("Welcome to Alert Dialog")
+                                .setTitle("Alert Dialog");
+                        builder.setMessage("Do you want to create User ?")
+                                .setCancelable(false)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        finish();
+                                        Users users = new Users();
+                                        users.setFullName(fullName.getText().toString().trim());
+                                        users.setEmail(email.getText().toString().trim());
+                                        users.setGender(genderRadioButton.getText().toString());
+                                        users.setIdentity(identity.getText().toString().trim());
+                                        users.setMobile("01" + mobile.getText().toString().trim());
+                                        users.setType(String.valueOf(type.getSelectedItem()));
+                                        users.setBatchCode(String.valueOf(batchCode.getSelectedItem()));
+                                        users.setDesignationOrCourse(String.valueOf(designationOrCourseName.getSelectedItem()));
+                                        users.setPassword(HashMD5.passwordHashing(password.getText().toString().trim()));
+                                        users.setConfirmPassword(HashMD5.passwordHashing(confirmPassword.getText().toString().trim()));
+                                        users.setImageName(identity.getText().toString().trim());
+                                        users.setExtension(".jpeg");
+                                        BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
+                                        Bitmap bitmap1 = drawable.getBitmap();
+                                        File filePath = Environment.getExternalStorageDirectory();
+                                        File dir = new File(filePath.getAbsolutePath() + "/userImages/");
+                                        dir.mkdir();
+                                        File file = new File(dir, users.getIdentity() + users.getExtension());
+                                        FileOutputStream outputStream = null;
+                                        try {
+                                            outputStream = new FileOutputStream(file);
+                                        } catch (FileNotFoundException e) {
+                                            e.printStackTrace();
+                                        }
+                                        bitmap1.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+                                        Toast.makeText(RegistrationActivity.this, "Image store successfully", Toast.LENGTH_SHORT).show();
+                                        try {
+                                            outputStream.flush();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                        try {
+                                            outputStream.close();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
 
-                        LocalDateTime dateObj = LocalDateTime.now();
-                        DateTimeFormatter formatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-                        String formattedDate = dateObj.format(formatObj);
-                        users.setCreatedOrUpdatedTime(formattedDate);
+                                        LocalDateTime dateObj = LocalDateTime.now();
+                                        DateTimeFormatter formatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+                                        String formattedDate = dateObj.format(formatObj);
+                                        users.setCreatedOrUpdatedTime(formattedDate);
 
-                        dbHelper.insertUserData(users);
-//                        clearUser();
-                        Intent intent = new Intent(RegistrationActivity.this, RegistrationActivity.class);
-                        startActivity(intent);
+                                        dbHelper.insertUserData(users);
+//                                        clearUser();
+                                        Intent intent = new Intent(RegistrationActivity.this, RegistrationActivity.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        //  Action for 'NO' Button
+                                        dialog.cancel();
+                                    }
+                                });
+                        //Creating dialog box
+                        AlertDialog alert = builder.create();
+                        //Setting the title manually
+                        alert.setTitle("Registration");
+                        alert.show();
                     }
                 }
             }
@@ -272,7 +290,6 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        System.out.println(requestCode + " - " + resultCode + " - " + data);
 //        if(requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK){ // requestCode = 1
         if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == Activity.RESULT_OK) { // requestCode = 200
             Uri uri = CropImage.getPickImageResultUri(RegistrationActivity.this, data);

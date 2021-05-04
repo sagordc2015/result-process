@@ -61,11 +61,11 @@ public class MainActivity extends AppCompatActivity {
                             String md5Hex = HashMD5.passwordHashing(pass);
                             if(checkUser.getPassword().toUpperCase().equals(md5Hex.toUpperCase())){
                                 Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
-                                System.out.println(checkUser.getExtension() + " ---------- ");
                                 intent.putExtra("user", checkUser);
                                 session.set("username", checkUser.getFullName());
                                 session.set("userid", checkUser.getIdentity());
                                 session.set("type", checkUser.getType());
+                                session.set("courseName", checkUser.getDesignationOrCourse());
 
                                 startActivity(intent);
                             }else{

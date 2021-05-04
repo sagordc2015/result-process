@@ -9,6 +9,8 @@
     android:background="@drawable/iit_background"
     tools:context=".EditProfileActivity">
 
+    <include layout="@layout/toolbar"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -142,6 +144,7 @@
                     android:textColorHint="@color/black"
                     android:background="@color/white"
                     android:layout_marginLeft="5dp"
+                    android:maxLength="11"
                     android:layout_toEndOf="@+id/mobileLavel"
                     android:layout_toRightOf="@+id/mobileLavel" />
             </LinearLayout>

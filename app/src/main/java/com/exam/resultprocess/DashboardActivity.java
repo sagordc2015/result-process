@@ -31,7 +31,7 @@ public class DashboardActivity extends AppCompatActivity {
     ImageView homeIcon;
     TextView usernameToolbar;
 
-    CardView cardViewBatch, cardViewTeacher, cardViewShowResult, cardViewInputResult;
+    CardView cardViewBatch, cardViewTeacher, cardViewShowResult, cardViewShowAllResult, cardViewInputResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +41,12 @@ public class DashboardActivity extends AppCompatActivity {
         cardViewBatch = (CardView) findViewById(R.id.cardViewBatch);
         cardViewTeacher = (CardView) findViewById(R.id.cardViewTeacher);
         cardViewShowResult = (CardView) findViewById(R.id.cardViewShowResult);
+        cardViewShowAllResult = (CardView) findViewById(R.id.cardViewShowAllResult);
         cardViewInputResult = (CardView) findViewById(R.id.cardViewInputResult);
         cardViewBatch.setRadius(20F);
         cardViewTeacher.setRadius(30F);
         cardViewShowResult.setRadius(30F);
+        cardViewShowAllResult.setRadius(30F);
         cardViewInputResult.setRadius(30F);
 
         session = new Session(this);
@@ -62,23 +64,25 @@ public class DashboardActivity extends AppCompatActivity {
         if((type.equals("Teacher")) && (userid.equals("1234"))){
             cardViewBatch.setVisibility(View.VISIBLE);
             cardViewTeacher.setVisibility(View.VISIBLE);
-            cardViewShowResult.setVisibility(View.VISIBLE);
+            cardViewShowResult.setVisibility(View.GONE);
+            cardViewShowAllResult.setVisibility(View.VISIBLE);
             cardViewInputResult.setVisibility(View.GONE);
         }else if((type.equals("Teacher")) && (!userid.equals("1234"))){
             cardViewBatch.setVisibility(View.GONE);
             cardViewTeacher.setVisibility(View.GONE);
             cardViewShowResult.setVisibility(View.GONE);
+            cardViewShowAllResult.setVisibility(View.VISIBLE);
             cardViewInputResult.setVisibility(View.VISIBLE);
         }else{
             cardViewBatch.setVisibility(View.GONE);
             cardViewTeacher.setVisibility(View.GONE);
-            cardViewShowResult.setVisibility(View.GONE);
+            cardViewShowResult.setVisibility(View.VISIBLE);
+            cardViewShowAllResult.setVisibility(View.GONE);
             cardViewInputResult.setVisibility(View.GONE);
         }
 
         if(getIntent().getExtras() != null){
             Users users = (Users) getIntent().getParcelableExtra("user");
-            System.out.println(users.getExtension() + " ---------- ");
             setToolbarData(users);
         }
 
@@ -86,7 +90,25 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DashboardActivity.this, DashboardActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        cardViewShowAllResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, MultipleCourseActivity.class);
+                intent.putExtra("identity", userid);
+                startActivity(intent);
+            }
+        });
+
+        cardViewShowResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, ShowResultActivity.class);
+                intent.putExtra("identity", session.get("userid"));
+                intent.putExtra("courseName", session.get("courseName"));
                 startActivity(intent);
             }
         });
@@ -144,10 +166,7 @@ public class DashboardActivity extends AppCompatActivity {
         usernameToolbar.setText(users.getFullName());
         File filePath = Environment.getExternalStorageDirectory();
         File dir = new File(filePath.getAbsolutePath()+"/userImages/");
-        System.out.println(dir + " *********");
-        System.out.println(users.getIdentity() + " *********" + users.getExtension());
         File file = new File(dir, users.getIdentity()+users.getExtension());
-        System.out.println(file.getPath() + " *********");
         String imagePath = file.getPath();
         session.set("imagePath", imagePath);
         Bitmap bitmap = BitmapFactory.decodeFile(imagePath);

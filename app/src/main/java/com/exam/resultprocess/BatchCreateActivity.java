@@ -2,8 +2,10 @@ package com.exam.resultprocess;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -39,11 +41,12 @@ public class BatchCreateActivity extends AppCompatActivity {
     TextView usernameToolbar;
 
     Spinner course;
-    EditText batchCode, batchName, batchYear;
+    EditText batchCode, batchYear;
     TextView batchYearLevel;
     Button batchSubmit;
 
     DBHelper dbHelper;
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class BatchCreateActivity extends AppCompatActivity {
 
         dbHelper = new DBHelper(this);
         session = new Session(this);
+        builder = new AlertDialog.Builder(this);
 
         imageViewProfile = (CircleImageView) findViewById(R.id.profile_image);
         homeIcon = (ImageView) findViewById(R.id.homeIcon);
@@ -65,7 +69,6 @@ public class BatchCreateActivity extends AppCompatActivity {
 
         course = (Spinner) findViewById(R.id.courseType);
         batchCode = (EditText) findViewById(R.id.batchNumber);
-        batchName = (EditText) findViewById(R.id.batchName);
         batchYear = (EditText) findViewById(R.id.batchYear);
         batchYearLevel = (TextView) findViewById(R.id.batchYearLevel);
         batchSubmit = (Button) findViewById(R.id.batchSubmit);
@@ -113,14 +116,39 @@ public class BatchCreateActivity extends AppCompatActivity {
                     if(check){
                         Toast.makeText(BatchCreateActivity.this, "Batch code are already Exists!!!", Toast.LENGTH_SHORT).show();
                     }else {
-                        BatchSetup batchSetup = new BatchSetup();
-                        batchSetup.setCourseName(String.valueOf(course.getSelectedItem()));
-                        batchSetup.setBatchCode(batchCode.getText().toString());
-                        batchSetup.setBatchName(batchName.getText().toString());
-                        batchSetup.setBatchYear(batchYear.getText().toString());
-                        batchSetup.setCreatedOrUpdatedTime(formattedDate);
+                        builder.setMessage("Welcome to Alert Dialog")
+                                .setTitle("Alert Dialog");
+                        builder.setMessage("Do you want to create a Batch ?")
+                                .setCancelable(false)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        finish();
 
-                        dbHelper.insertBatchData(batchSetup);
+                                        BatchSetup batchSetup = new BatchSetup();
+                                        batchSetup.setCourseName(String.valueOf(course.getSelectedItem()));
+                                        batchSetup.setBatchCode(batchCode.getText().toString());
+                                        batchSetup.setBatchName(String.valueOf(course.getSelectedItem()) + " " + batchCode.getText().toString());
+                                        batchSetup.setBatchYear(batchYear.getText().toString());
+                                        batchSetup.setCreatedOrUpdatedTime(formattedDate);
+
+                                        dbHelper.insertBatchData(batchSetup);
+
+                                        Intent intent = new Intent(BatchCreateActivity.this, BatchCreateActivity.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        //  Action for 'NO' Button
+                                        dialog.cancel();
+                                    }
+                                });
+                        //Creating dialog box
+                        AlertDialog alert = builder.create();
+                        //Setting the title manually
+                        alert.setTitle("Batch Create");
+                        alert.show();
+
                     }
                 }
             }

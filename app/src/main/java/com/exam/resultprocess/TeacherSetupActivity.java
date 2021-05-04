@@ -2,8 +2,10 @@ package com.exam.resultprocess;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -38,11 +40,12 @@ public class TeacherSetupActivity extends AppCompatActivity {
     ImageView homeIcon;
     TextView usernameToolbar;
 
-    Spinner spinnerTeacherId, spinnerBatchCode, spinnerCourseName, spinnerSubjectCode;
+    Spinner spinnerTeacherId, spinnerBatchCode, spinnerCourseName, spinnerSubjectCode, spinnerSemester;
     TextView teacherName, designation;
     Button submitBtn;
 
     DBHelper dbHelper;
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,7 @@ public class TeacherSetupActivity extends AppCompatActivity {
 
         dbHelper = new DBHelper(this);
         session = new Session(this);
+        builder = new AlertDialog.Builder(this);
 
         imageViewProfile = (CircleImageView) findViewById(R.id.profile_image);
         homeIcon = (ImageView) findViewById(R.id.homeIcon);
@@ -61,6 +65,7 @@ public class TeacherSetupActivity extends AppCompatActivity {
         spinnerBatchCode = (Spinner) findViewById(R.id.spinnerBatchCode);
         spinnerCourseName = (Spinner) findViewById(R.id.spinnerCourseName);
         spinnerSubjectCode = (Spinner) findViewById(R.id.spinnerSubjectCode);
+        spinnerSemester = (Spinner) findViewById(R.id.spinnerSemester);
 
         teacherName = (TextView) findViewById(R.id.showTeacherName);
         designation = (TextView) findViewById(R.id.showDesignation);
@@ -102,24 +107,47 @@ public class TeacherSetupActivity extends AppCompatActivity {
                     }else if(spinnerSubjectCode.getSelectedItem() == "Select Subject"){
                         Toast.makeText(TeacherSetupActivity.this, "Subject is Required!!!", Toast.LENGTH_SHORT).show();
                     }else {
-                        TeacherSetup teacherSetup = new TeacherSetup();
-                        teacherSetup.setTeacherId(String.valueOf(spinnerTeacherId.getSelectedItem()));
-                        teacherSetup.setTeacherName(teacherName.getText().toString());
-                        teacherSetup.setDesignation(designation.getText().toString());
-                        teacherSetup.setBatchCode(String.valueOf(spinnerBatchCode.getSelectedItem()));
-                        teacherSetup.setCourseName(String.valueOf(spinnerCourseName.getSelectedItem()));
-                        teacherSetup.setSubjectCode(subject[0]);
-                        teacherSetup.setSubjectName(subject[1]);
+                        builder.setMessage("Welcome to Alert Dialog")
+                                .setTitle("Alert Dialog");
+                        builder.setMessage("Do you want to create a Teacher setup ?")
+                                .setCancelable(false)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        finish();
+                                        TeacherSetup teacherSetup = new TeacherSetup();
+                                        String teacher = String.valueOf(spinnerTeacherId.getSelectedItem());
+                                        String[] teacherArr = teacher.split(" - ", 0);
+                                        teacherSetup.setTeacherId(teacherArr[0]);
+                                        teacherSetup.setTeacherName(teacherName.getText().toString());
+                                        teacherSetup.setDesignation(designation.getText().toString());
+                                        teacherSetup.setBatchCode(String.valueOf(spinnerBatchCode.getSelectedItem()));
+                                        teacherSetup.setCourseName(String.valueOf(spinnerCourseName.getSelectedItem()));
+                                        teacherSetup.setSubjectCode(subject[0]);
+                                        teacherSetup.setSubjectName(subject[1]);
+                                        teacherSetup.setSemester(String.valueOf(spinnerSemester.getSelectedItem()));
 
-                        LocalDateTime dateObj = LocalDateTime.now();
-                        DateTimeFormatter formatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-                        String formattedDate = dateObj.format(formatObj);
-                        teacherSetup.setCreatedOrUpdatedTime(formattedDate);
+                                        LocalDateTime dateObj = LocalDateTime.now();
+                                        DateTimeFormatter formatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+                                        String formattedDate = dateObj.format(formatObj);
+                                        teacherSetup.setCreatedOrUpdatedTime(formattedDate);
 
-                        dbHelper.insertTeacherSetupData(teacherSetup);
+                                        dbHelper.insertTeacherSetupData(teacherSetup);
 
-                        Intent intent = new Intent(TeacherSetupActivity.this, TeacherSetupActivity.class);
-                        startActivity(intent);
+                                        Intent intent = new Intent(TeacherSetupActivity.this, TeacherSetupActivity.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        //  Action for 'NO' Button
+                                        dialog.cancel();
+                                    }
+                                });
+                        //Creating dialog box
+                        AlertDialog alert = builder.create();
+                        //Setting the title manually
+                        alert.setTitle("Teacher Setup");
+                        alert.show();
                     }
                 }
             }
@@ -180,7 +208,9 @@ public class TeacherSetupActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 List<String> listSubjectCode = new ArrayList<>();
+                List<String> listSemester = new ArrayList<>();
                 listSubjectCode.add("Select Subject");
+                listSemester.add("Select Semester");
                 if (String.valueOf(spinnerCourseName.getSelectedItem()) == "PGDIT") {
                     listSubjectCode.add("PGD 101 - Computer Fundamentals and Office Automation");
                     listSubjectCode.add("PGD 104 - Structured Programming");
@@ -195,6 +225,11 @@ public class TeacherSetupActivity extends AppCompatActivity {
                     listSubjectCode.add("PGD 207 - Mobile Application");
                     listSubjectCode.add("PGD 208 - Net Technology");
                     listSubjectCode.add("PGD 210 - Project for PGDIT");
+
+                    listSemester.add("1st Trimester");
+                    listSemester.add("2nd Trimester");
+                    listSemester.add("3rd Trimester");
+
                 }else if(String.valueOf(spinnerCourseName.getSelectedItem()) == "MIT"){
                     listSubjectCode.add("MITM301 - Project Management and Business Info System");
                     listSubjectCode.add("MITM302 - Computer Programming");
@@ -218,12 +253,23 @@ public class TeacherSetupActivity extends AppCompatActivity {
                     listSubjectCode.add("MITE414 - Software Testing");
                     listSubjectCode.add("MITP421 - Project for MIT");
                     listSubjectCode.add("MITI422 - Industrial Attachment");
+
+                    listSemester.add("1st Semester");
+                    listSemester.add("2nd Semester");
+                    listSemester.add("3rd Semester");
+                    listSemester.add("4th Semester");
+
                 }
 
                 ArrayAdapter<String> dataAdapterSubjectCode = new ArrayAdapter<String>(TeacherSetupActivity.this,
                         android.R.layout.simple_spinner_item, listSubjectCode);
                 dataAdapterSubjectCode.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinnerSubjectCode.setAdapter(dataAdapterSubjectCode);
+
+                ArrayAdapter<String> dataAdapterSemester = new ArrayAdapter<String>(TeacherSetupActivity.this,
+                        android.R.layout.simple_spinner_item, listSemester);
+                dataAdapterSemester.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerSemester.setAdapter(dataAdapterSemester);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {

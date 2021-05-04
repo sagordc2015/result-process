@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.exam.resultprocess.model.*;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +18,6 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "ResultProcess.db";
     private static final int DATABASE_VERSION = 1;
 
-    private ByteArrayOutputStream byteArrayOutputStream;
-    private byte[] imageBytes;
-
     private String users = "CREATE TABLE Users(" +
             "fullName TEXT, " +
             "email TEXT primary key, " +
@@ -29,6 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "identity TEXT, " +
             "mobile TEXT, " +
             "type TEXT, " +
+            "batchCode TEXT, " +
             "designationOrCourseName TEXT, " +
             "password TEXT, " +
             "confirmPassword TEXT, " +
@@ -37,11 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "createdOrUpdatedTime TEXT)";
 
     private String results = "CREATE TABLE Results(" +
-            "fullName TEXT, " +
-            "email TEXT, " +
-            "gender TEXT, " +
             "identity TEXT, " +
-            "mobile TEXT, " +
             "designationOrCourseName TEXT, " +
             "semester TEXT, " +
             "attendance TEXT, " +
@@ -71,6 +64,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "courseName TEXT, " +
             "subjectCode TEXT, " +
             "subjectName TEXT, " +
+            "semester TEXT, " +
             "createdOrUpdatedTime TEXT)";
 
     public DBHelper(Context context){
@@ -107,6 +101,7 @@ public class DBHelper extends SQLiteOpenHelper {
             values.put("gender", users.getGender());
             values.put("identity", users.getIdentity());
             values.put("type", users.getType());
+            values.put("batchCode", users.getBatchCode());
             values.put("designationOrCourseName", users.getDesignationOrCourse());
             values.put("mobile", users.getMobile());
             values.put("password", users.getPassword());
@@ -131,11 +126,7 @@ public class DBHelper extends SQLiteOpenHelper {
         try{
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put("fullName", results.getFullName());
-            values.put("email", results.getEmail());
-            values.put("gender", results.getGender());
             values.put("identity", results.getStudentId());
-            values.put("mobile", results.getMobile());
             values.put("designationOrCourseName", results.getDesignationOrCourseName());
             values.put("semester", results.getSemester());
             values.put("attendance", results.getAttendance());
@@ -195,6 +186,7 @@ public class DBHelper extends SQLiteOpenHelper {
             values.put("courseName", teacherSetup.getCourseName());
             values.put("subjectCode", teacherSetup.getSubjectCode());
             values.put("subjectName", teacherSetup.getSubjectName());
+            values.put("semester", teacherSetup.getSemester());
             values.put("createdOrUpdatedTime", teacherSetup.getCreatedOrUpdatedTime());
 
             long result = db.insert("TeacherSetups", null, values);
@@ -216,10 +208,8 @@ public class DBHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put("fullName", users.getFullName());
             values.put("email", users.getEmail());
-            values.put("gender", users.getGender());
             values.put("mobile", users.getMobile());
-            values.put("designationOrCourse", users.getDesignationOrCourse());
-            values.put("imageName", users.getImageName());
+            values.put("designationOrCourseName", users.getDesignationOrCourse());
             values.put("password", users.getPassword());
             values.put("confirmPassword", users.getConfirmPassword());
 
@@ -282,8 +272,8 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = null;
         try{
             SQLiteDatabase db = this.getReadableDatabase();
-            String sql = "SELECT * FROM Users WHERE type = ? AND identity != ?";
-            cursor = db.rawQuery(sql, new String[]{"Teacher", "0000"});
+            String sql = "SELECT * FROM Users WHERE type = ? AND identity != ? ORDER BY identity";
+            cursor = db.rawQuery(sql, new String[]{"Teacher", "1234"});
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 lists.add(cursor.getString(cursor.getColumnIndex("identity")) + " - " + cursor.getString(cursor.getColumnIndex("fullName")));
             }
@@ -301,10 +291,55 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = null;
         try{
             SQLiteDatabase db = this.getReadableDatabase();
-            String sql = "SELECT * FROM Batchs";
+            String sql = "SELECT * FROM Batchs ORDER BY batchCode";
             cursor = db.rawQuery(sql, new String[]{});
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 lists.add(cursor.getString(cursor.getColumnIndex("batchCode")));
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return lists;
+    }
+
+    public List<BatchSetup> getBatchsList(){
+        List<BatchSetup> lists = new ArrayList<>();
+        Cursor cursor = null;
+        try{
+            SQLiteDatabase db = this.getReadableDatabase();
+            String sql = "SELECT * FROM Batchs ORDER BY batchCode";
+            cursor = db.rawQuery(sql, new String[]{});
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                BatchSetup batchSetup = new BatchSetup();
+                batchSetup.setBatchCode(cursor.getString(cursor.getColumnIndex("batchCode")));
+                batchSetup.setBatchName(cursor.getString(cursor.getColumnIndex("batchName")));
+                batchSetup.setBatchYear(cursor.getString(cursor.getColumnIndex("batchYear")));
+                batchSetup.setCourseName(cursor.getString(cursor.getColumnIndex("courseName")));
+                lists.add(batchSetup);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return lists;
+    }
+
+    public List<TeacherSetup> getTeacherSetupList(String teacherId){
+        List<TeacherSetup> lists = new ArrayList<>();
+        Cursor cursor = null;
+        try{
+            SQLiteDatabase db = this.getReadableDatabase();
+            String sql = "SELECT * FROM TeacherSetups WHERE teacherId = ? ORDER BY teacherId";
+            cursor = db.rawQuery(sql, new String[]{teacherId});
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                TeacherSetup teacherSetup = new TeacherSetup();
+                teacherSetup.setTeacherId(cursor.getString(cursor.getColumnIndex("teacherId")));
+                teacherSetup.setTeacherName(cursor.getString(cursor.getColumnIndex("teacherName")));
+                teacherSetup.setBatchCode(cursor.getString(cursor.getColumnIndex("batchCode")));
+                teacherSetup.setCourseName(cursor.getString(cursor.getColumnIndex("courseName")));
+                teacherSetup.setSubjectCode(cursor.getString(cursor.getColumnIndex("subjectCode")));
+                teacherSetup.setSubjectName(cursor.getString(cursor.getColumnIndex("subjectName")));
+                teacherSetup.setSemester(cursor.getString(cursor.getColumnIndex("semester")));
+                lists.add(teacherSetup);
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -364,14 +399,117 @@ public class DBHelper extends SQLiteOpenHelper {
         TeacherSetup teacherSetup = new TeacherSetup();
         try{
             SQLiteDatabase db = this.getReadableDatabase();
-            String sql = "SELECT * FROM TeacherSetups WHERE teacherId = ? OR batchCode = ?";
+            String sql = "SELECT * FROM TeacherSetups WHERE teacherId = ? AND batchCode = ?";
             Cursor cursor = db.rawQuery(sql, new String[]{teacherId, batchCode});
             if(cursor.moveToFirst()){
                 teacherSetup.setSubjectCode(cursor.getString(cursor.getColumnIndex("subjectCode")));
+                teacherSetup.setSubjectName(cursor.getString(cursor.getColumnIndex("subjectName")));
+                teacherSetup.setSemester(cursor.getString(cursor.getColumnIndex("semester")));
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
         return teacherSetup;
     }
+
+    public List<Results> getByIdentity(String identity) {
+        List<Results> resultList = new ArrayList<>();
+        Users users = this.getByEmailOrID(identity);
+        try{
+            SQLiteDatabase db = this.getReadableDatabase();
+            String sql = "SELECT * FROM Results WHERE identity = ? ORDER BY identity";
+            Cursor cursor = db.rawQuery(sql, new String[]{identity});
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                Results results = new Results();
+
+                results.setFullName(users.getFullName());
+                results.setEmail(users.getEmail());
+                results.setGender(users.getGender());
+                results.setStudentId(users.getIdentity());
+                results.setMobile(users.getMobile());
+                results.setDesignationOrCourseName(users.getDesignationOrCourse());
+//                results.setStudentId(cursor.getString(cursor.getColumnIndex("identity")));
+                results.setDesignationOrCourseName(cursor.getString(cursor.getColumnIndex("designationOrCourseName")));
+                results.setSemester(cursor.getString(cursor.getColumnIndex("semester")));
+                results.setAttendance(cursor.getString(cursor.getColumnIndex("attendance")));
+                results.setAssignment(cursor.getString(cursor.getColumnIndex("assignment")));
+                results.setPresentation(cursor.getString(cursor.getColumnIndex("presentation")));
+                results.setMidTerm(cursor.getString(cursor.getColumnIndex("midTerm")));
+                results.setFinalMarks(cursor.getString(cursor.getColumnIndex("finalMarks")));
+                results.setTotal(cursor.getString(cursor.getColumnIndex("total")));
+                results.setCgpa(cursor.getString(cursor.getColumnIndex("cgpa")));
+                results.setGrade(cursor.getString(cursor.getColumnIndex("grade")));
+                results.setRemarks(cursor.getString(cursor.getColumnIndex("remarks")));
+                results.setSubjectCode(cursor.getString(cursor.getColumnIndex("subjectCode")));
+                resultList.add(results);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return resultList;
+    }
+
+    public List<Results> getSubjectAndBatchWiseResult(String subjectCode, String batchCode) {
+        List<Results> resultList = new ArrayList<>();
+        try{
+            SQLiteDatabase db = this.getReadableDatabase();
+            String sql = "SELECT * FROM Results WHERE subjectCode = ? AND designationOrCourseName = ? ORDER BY identity";
+            Cursor cursor = db.rawQuery(sql, new String[]{subjectCode, batchCode});
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                Results results = new Results();
+                Users users = this.getByEmailOrID(cursor.getString(cursor.getColumnIndex("identity")));
+                results.setFullName(users.getFullName());
+                results.setDesignationOrCourseName(cursor.getString(cursor.getColumnIndex("designationOrCourseName")));
+                results.setSemester(cursor.getString(cursor.getColumnIndex("semester")));
+                results.setAttendance(cursor.getString(cursor.getColumnIndex("attendance")));
+                results.setAssignment(cursor.getString(cursor.getColumnIndex("assignment")));
+                results.setPresentation(cursor.getString(cursor.getColumnIndex("presentation")));
+                results.setMidTerm(cursor.getString(cursor.getColumnIndex("midTerm")));
+                results.setFinalMarks(cursor.getString(cursor.getColumnIndex("finalMarks")));
+                results.setTotal(cursor.getString(cursor.getColumnIndex("total")));
+                results.setCgpa(cursor.getString(cursor.getColumnIndex("cgpa")));
+                results.setGrade(cursor.getString(cursor.getColumnIndex("grade")));
+                results.setRemarks(cursor.getString(cursor.getColumnIndex("remarks")));
+//                results.setSubjectCode(cursor.getString(cursor.getColumnIndex("subjectCode")));
+                results.setSubjectCode(users.getFullName());
+                resultList.add(results);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return resultList;
+    }
+
+    public List<Results> getCourseWiseResults(String designationOrCourseName) {
+        List<Results> resultList = new ArrayList<>();
+        try{
+            SQLiteDatabase db = this.getReadableDatabase();
+            String sql = "SELECT * FROM Results WHERE designationOrCourseName = ? ORDER BY identity";
+            Cursor cursor = db.rawQuery(sql, new String[]{designationOrCourseName});
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                Results results = new Results();
+                Users users = this.getByEmailOrID(cursor.getString(cursor.getColumnIndex("identity")));
+                results.setFullName(users.getFullName());
+                results.setStudentId(users.getIdentity());
+//                results.setStudentId(cursor.getString(cursor.getColumnIndex("identity")));
+                results.setDesignationOrCourseName(cursor.getString(cursor.getColumnIndex("designationOrCourseName")));
+                results.setSemester(cursor.getString(cursor.getColumnIndex("semester")));
+                results.setAttendance(cursor.getString(cursor.getColumnIndex("attendance")));
+                results.setAssignment(cursor.getString(cursor.getColumnIndex("assignment")));
+                results.setPresentation(cursor.getString(cursor.getColumnIndex("presentation")));
+                results.setMidTerm(cursor.getString(cursor.getColumnIndex("midTerm")));
+                results.setFinalMarks(cursor.getString(cursor.getColumnIndex("finalMarks")));
+                results.setTotal(cursor.getString(cursor.getColumnIndex("total")));
+                results.setCgpa(cursor.getString(cursor.getColumnIndex("cgpa")));
+                results.setGrade(cursor.getString(cursor.getColumnIndex("grade")));
+                results.setRemarks(cursor.getString(cursor.getColumnIndex("remarks")));
+                results.setSubjectCode(cursor.getString(cursor.getColumnIndex("subjectCode")));
+                resultList.add(results);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return resultList;
+    }
+
 }
