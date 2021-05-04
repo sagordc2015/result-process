@@ -27,7 +27,7 @@
                 android:layout_width="175dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
-                card_view:cardBackgroundColor="#000"
+                card_view:cardBackgroundColor="@color/black"
                 android:layout_marginTop="5dp"
                 card_view:cardElevation="20dp"
                 card_view:contentPadding="20dp">
@@ -68,7 +68,7 @@
                 android:layout_width="175dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
-                card_view:cardBackgroundColor="#000"
+                card_view:cardBackgroundColor="@color/red"
                 android:layout_marginTop="15dp"
                 card_view:cardElevation="20dp"
                 card_view:contentPadding="20dp">
@@ -110,7 +110,7 @@
                 android:layout_height="150dp"
                 android:layout_marginTop="15dp"
                 android:layout_gravity="center"
-                card_view:cardBackgroundColor="#000"
+                card_view:cardBackgroundColor="#Ff44ff"
                 card_view:cardElevation="20dp"
                 card_view:contentPadding="20dp">
 
@@ -150,7 +150,7 @@
                 android:layout_width="175dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
-                card_view:cardBackgroundColor="#000"
+                card_view:cardBackgroundColor="@color/blue"
                 android:layout_marginTop="15dp"
                 card_view:cardElevation="20dp"
                 card_view:contentPadding="20dp">
@@ -188,7 +188,7 @@
                 android:layout_width="175dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
-                card_view:cardBackgroundColor="#000"
+                card_view:cardBackgroundColor="@color/blue"
                 android:layout_marginTop="15dp"
                 card_view:cardElevation="20dp"
                 card_view:contentPadding="20dp">
