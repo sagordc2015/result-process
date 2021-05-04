@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.exam.resultprocess.model.Users;
 
 public class MainActivity extends AppCompatActivity {
+    private Session session;
 
     EditText username, password;
     Button login;
@@ -26,9 +27,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         dbHelper = new DBHelper(this);
+        session = new Session(this);
 
         username = (EditText) findViewById(R.id.username);
-        username.requestFocus();
+//        username.requestFocus();
         password = (EditText) findViewById(R.id.password);
         login = (Button) findViewById(R.id.buttonLogin);
         register = (TextView) findViewById(R.id.register);
@@ -60,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
                             if(checkUser.getPassword().toUpperCase().equals(md5Hex.toUpperCase())){
                                 Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
                                 intent.putExtra("user", checkUser);
+                                session.set("username", checkUser.getFullName());
+                                session.set("userid", checkUser.getIdentity());
+                                session.set("type", checkUser.getType());
+                                session.set("courseName", checkUser.getDesignationOrCourse());
+
                                 startActivity(intent);
                             }else{
                                 Toast.makeText(MainActivity.this, "Password not match!!!", Toast.LENGTH_SHORT).show();

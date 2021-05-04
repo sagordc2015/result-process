@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 public class BatchSetup implements Parcelable {
 
+    private String courseName = "";
     private String batchCode = "";
     private String batchName = "";
     private String batchYear = "";
@@ -15,6 +16,7 @@ public class BatchSetup implements Parcelable {
     }
 
     protected BatchSetup(Parcel in) {
+        courseName = in.readString();
         batchCode = in.readString();
         batchName = in.readString();
         batchYear = in.readString();
@@ -32,6 +34,14 @@ public class BatchSetup implements Parcelable {
             return new BatchSetup[size];
         }
     };
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
     public String getBatchCode() {
         return batchCode;
@@ -72,6 +82,7 @@ public class BatchSetup implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(courseName);
         dest.writeString(batchCode);
         dest.writeString(batchName);
         dest.writeString(batchYear);

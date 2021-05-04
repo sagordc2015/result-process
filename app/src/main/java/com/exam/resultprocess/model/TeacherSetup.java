@@ -11,6 +11,7 @@ public class TeacherSetup implements Parcelable {
     private String courseName = "";
     private String subjectCode = "";
     private String subjectName = "";
+    private String semester = "";
     private String createdOrUpdatedTime = "";
 
     public TeacherSetup(){
@@ -25,6 +26,7 @@ public class TeacherSetup implements Parcelable {
         courseName = in.readString();
         subjectCode = in.readString();
         subjectName = in.readString();
+        semester = in.readString();
         createdOrUpdatedTime = in.readString();
     }
 
@@ -84,6 +86,14 @@ public class TeacherSetup implements Parcelable {
         this.subjectName = subjectName;
     }
 
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
     public String getCreatedOrUpdatedTime() {
         return createdOrUpdatedTime;
     }
@@ -122,6 +132,7 @@ public class TeacherSetup implements Parcelable {
         dest.writeString(courseName);
         dest.writeString(subjectCode);
         dest.writeString(subjectName);
+        dest.writeString(semester);
         dest.writeString(createdOrUpdatedTime);
     }
 }

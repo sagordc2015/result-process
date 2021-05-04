@@ -7,6 +7,7 @@ public class Users implements Parcelable {
     private String fullName = "";
     private String email = "";
     private String gender = "";
+    private String batchCode = "";
     private String identity = "";
     private String type = "";
     private String designationOrCourse = "";
@@ -25,6 +26,7 @@ public class Users implements Parcelable {
         fullName = in.readString();
         email = in.readString();
         gender = in.readString();
+        batchCode = in.readString();
         identity = in.readString();
         type = in.readString();
         designationOrCourse = in.readString();
@@ -70,6 +72,14 @@ public class Users implements Parcelable {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getBatchCode() {
+        return batchCode;
+    }
+
+    public void setBatchCode(String batchCode) {
+        this.batchCode = batchCode;
     }
 
     public String getIdentity() {
@@ -154,9 +164,11 @@ public class Users implements Parcelable {
         dest.writeString(fullName);
         dest.writeString(email);
         dest.writeString(gender);
+        dest.writeString(batchCode);
         dest.writeString(identity);
         dest.writeString(type);
         dest.writeString(designationOrCourse);
+        dest.writeString(mobile);
         dest.writeString(imageName);
         dest.writeString(extension);
         dest.writeString(password);
