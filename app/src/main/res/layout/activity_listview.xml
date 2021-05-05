@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Single List Item Design -->
+<HorizontalScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/resultSubjectCode"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:textSize="16dip"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/resultAttendance"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:textSize="16dip"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/resultAssignment"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:textSize="16dip"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/resultPresentation"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:textSize="16dip"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/resultMidTerm"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:textSize="16dip"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/resultFinalMarks"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:textSize="16dip"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/resultTotal"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:textSize="16dip"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/resultCgpa"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:textSize="16dip"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/resultGrade"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:textSize="16dip"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/resultRemarks"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:textSize="16dip"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</HorizontalScrollView>

@@ -7,6 +7,7 @@ public class Users implements Parcelable {
     private String fullName = "";
     private String email = "";
     private String gender = "";
+    private String batchCode = "";
     private String identity = "";
     private String type = "";
     private String designationOrCourse = "";
@@ -15,6 +16,7 @@ public class Users implements Parcelable {
     private String extension = "";
     private String password = "";
     private String confirmPassword = "";
+    private String createdOrUpdatedTime = "";
 
     public Users() {
 
@@ -24,6 +26,7 @@ public class Users implements Parcelable {
         fullName = in.readString();
         email = in.readString();
         gender = in.readString();
+        batchCode = in.readString();
         identity = in.readString();
         type = in.readString();
         designationOrCourse = in.readString();
@@ -32,6 +35,7 @@ public class Users implements Parcelable {
         extension = in.readString();
         password = in.readString();
         confirmPassword = in.readString();
+        createdOrUpdatedTime = in.readString();
     }
 
     public static final Creator<Users> CREATOR = new Creator<Users>() {
@@ -68,6 +72,14 @@ public class Users implements Parcelable {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getBatchCode() {
+        return batchCode;
+    }
+
+    public void setBatchCode(String batchCode) {
+        this.batchCode = batchCode;
     }
 
     public String getIdentity() {
@@ -134,6 +146,14 @@ public class Users implements Parcelable {
         this.confirmPassword = confirmPassword;
     }
 
+    public String getCreatedOrUpdatedTime() {
+        return createdOrUpdatedTime;
+    }
+
+    public void setCreatedOrUpdatedTime(String createdOrUpdatedTime) {
+        this.createdOrUpdatedTime = createdOrUpdatedTime;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -144,12 +164,15 @@ public class Users implements Parcelable {
         dest.writeString(fullName);
         dest.writeString(email);
         dest.writeString(gender);
+        dest.writeString(batchCode);
         dest.writeString(identity);
         dest.writeString(type);
         dest.writeString(designationOrCourse);
+        dest.writeString(mobile);
         dest.writeString(imageName);
         dest.writeString(extension);
         dest.writeString(password);
         dest.writeString(confirmPassword);
+        dest.writeString(createdOrUpdatedTime);
     }
 }
