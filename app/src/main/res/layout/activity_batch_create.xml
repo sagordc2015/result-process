@@ -110,6 +110,7 @@
                 android:layout_height="45dp"
                 android:layout_marginLeft="10dp"
                 android:hint="Batch Year"
+                android:maxLength="4"
                 android:inputType="numberDecimal"
                 android:background="@color/white"
                 android:textColorHint="@color/black"

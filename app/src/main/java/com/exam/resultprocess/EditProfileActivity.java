@@ -132,7 +132,11 @@ public class EditProfileActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                boolean checkUser = dbHelper.getByEmail(editEmail.getText().toString());
+                boolean checkUser = false;
+                if(!users.getEmail().equals(editEmail.getText().toString())){
+                    checkUser = dbHelper.getByEmail(editEmail.getText().toString());
+                }
+
                 if (editFullName.getText().toString().equals("")) {
                     Toast.makeText(EditProfileActivity.this, "Please Full Name is Required!!!", Toast.LENGTH_LONG).show();
                 } else if (editEmail.getText().toString().equals("")) {
@@ -203,6 +207,8 @@ public class EditProfileActivity extends AppCompatActivity {
                                     }
                                     dbHelper.updateUserData(users);
                                     session.set("username", users.getFullName());
+                                    Intent intent = new Intent(EditProfileActivity.this, DashboardActivity.class);
+                                    startActivity(intent);
                                 }
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -266,6 +272,7 @@ public class EditProfileActivity extends AppCompatActivity {
         editType.setText(users.getType());
         editBatchCode.setText(users.getBatchCode());
         editIdentity.setText(users.getIdentity());
+        editDesignationOrCourseName.setText(users.getDesignationOrCourse());
 
         File filePath = Environment.getExternalStorageDirectory();
         File dir = new File(filePath.getAbsolutePath()+"/userImages/");

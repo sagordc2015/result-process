@@ -237,6 +237,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 users.setMobile(cursor.getString(cursor.getColumnIndex("mobile")));
                 users.setIdentity(cursor.getString(cursor.getColumnIndex("identity")));
                 users.setType(cursor.getString(cursor.getColumnIndex("type")));
+                users.setBatchCode(cursor.getString(cursor.getColumnIndex("batchCode")));
                 users.setDesignationOrCourse(cursor.getString(cursor.getColumnIndex("designationOrCourseName")));
                 users.setPassword(cursor.getString(cursor.getColumnIndex("password")));
                 users.setConfirmPassword(cursor.getString(cursor.getColumnIndex("confirmPassword")));
