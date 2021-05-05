@@ -236,14 +236,13 @@
                     android:textColor="@color/blue"
                     android:background="@color/white"
                     android:gravity="center"/>
-                <Spinner
+                <TextView
                     android:id="@+id/editDesignationOrCourseName"
                     android:layout_width="225dp"
                     android:layout_height="35dp"
                     android:gravity="center"
                     android:background="@color/white"
-                    android:layout_marginLeft="5dp"
-                    android:spinnerMode="dropdown"/>
+                    android:layout_marginLeft="5dp"/>
             </LinearLayout>
 
             <LinearLayout

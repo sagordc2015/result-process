@@ -42,7 +42,7 @@
 
     <Button
         android:id="@+id/buttonLogin"
-        android:layout_width="300dp"
+        android:layout_width="150dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
         android:background="#04ea00"
@@ -55,13 +55,6 @@
         android:layout_marginTop="15dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:background="#ffffff"
-            android:textColor="@color/black"
-            android:text="Not Registered"/>
-
-        <TextView
             android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
@@ -69,7 +62,7 @@
             android:textSize="15dp"
             android:textStyle="bold"
             android:background="#04ea00"
-            android:text="Register"
+            android:text="Sign up"
             android:textColor="@color/black"
             android:gravity="center_horizontal" />
 

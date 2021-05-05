@@ -111,7 +111,7 @@ public class InputResultActivity extends AppCompatActivity {
                         gender.setText(user.getGender());
                         course.setText(user.getDesignationOrCourse());
                         String teacherId = session.get("userid");
-                        String batchCode = studentId.getText().toString().substring(0, 2);
+                        String batchCode = studentId.getText().toString().substring(0, studentId.length() - 2);
                         TeacherSetup teacherSetup = dbHelper.getBySubjectCode(teacherId, batchCode);
                         showSubjectCode.setText(teacherSetup.getSubjectCode());
                         showSemester.setText(teacherSetup.getSemester());

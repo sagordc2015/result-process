@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -84,7 +85,8 @@ public class RegistrationActivity extends AppCompatActivity {
         builder = new AlertDialog.Builder(this);
 
         addItemsOnSpinner();
-        addListenerOnButton();
+        addListenerChangeType();
+//        addListenerOnCourse();
 
         imageView = (CircleImageView) findViewById(R.id.upload_image);
 
@@ -116,13 +118,17 @@ public class RegistrationActivity extends AppCompatActivity {
                     Toast.makeText(RegistrationActivity.this, "Please Gender is Required!!!", Toast.LENGTH_LONG).show();
                 } else if (identity.getText().toString().equals("")) {
                     Toast.makeText(RegistrationActivity.this, "Please ID is Required!!!", Toast.LENGTH_LONG).show();
-                } else if (identity.getText().toString().length() < 4) {
+                } else if ((String.valueOf(designationOrCourseName.getSelectedItem()) == "PGDIT") && (identity.getText().toString().length() < 4)) {
                     Toast.makeText(RegistrationActivity.this, "Please ID length 4 digit!!!", Toast.LENGTH_LONG).show();
-                } else if ((identity.getText().toString().length() == 4) && (Integer.parseInt(identity.getText().toString().substring(2, 4)) > 40) || Integer.parseInt(identity.getText().toString().substring(2, 4)) < 1) {
+                } else if ((String.valueOf(type.getSelectedItem()) == "Teacher") && (identity.getText().toString().length() < 6)) {
+                    Toast.makeText(RegistrationActivity.this, "Please ID length 6 digit!!!", Toast.LENGTH_LONG).show();
+                } else if ((String.valueOf(designationOrCourseName.getSelectedItem()) == "MIT") && (identity.getText().toString().length() < 5)) {
+                    Toast.makeText(RegistrationActivity.this, "Please ID length 5 digit!!!", Toast.LENGTH_LONG).show();
+                } else if ((identity.getText().toString().length() == 4) && (Integer.parseInt(identity.getText().toString().substring(identity.length() - 2, identity.length())) > 40) || Integer.parseInt(identity.getText().toString().substring(2, 4)) < 1) {
                     Toast.makeText(RegistrationActivity.this, "Please ID must between 1-40 number!!!", Toast.LENGTH_LONG).show();
                 } else if (String.valueOf(type.getSelectedItem()).equals("Select Type")) {
                     Toast.makeText(RegistrationActivity.this, "Type is Required!!!", Toast.LENGTH_LONG).show();
-                } else if ((String.valueOf(type.getSelectedItem()) == "Student") && (!String.valueOf((String)batchCode.getSelectedItem()).equals(identity.getText().toString().substring(0, 2)))) {
+                } else if ((String.valueOf(type.getSelectedItem()) == "Student") && (!String.valueOf((String)batchCode.getSelectedItem()).equals(identity.getText().toString().substring(0, identity.length() - 2)))) {
                     Toast.makeText(RegistrationActivity.this, "Batch & Identity not match!!!", Toast.LENGTH_LONG).show();
                 } else if ((String.valueOf(type.getSelectedItem()) == "Teacher") && (String.valueOf(designationOrCourseName.getSelectedItem()) == "Select Designation")) {
                     Toast.makeText(RegistrationActivity.this, "Designation is Required!!!", Toast.LENGTH_LONG).show();
@@ -238,7 +244,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     // get the selected dropdown list value
-    public void addListenerOnButton() {
+    public void addListenerChangeType() {
 
         type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -249,6 +255,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 List<String> listCourse = new ArrayList<>();
                 List<String> listBatch = new ArrayList<>();
 
+                identity.setText("");
                 if (String.valueOf(type.getSelectedItem()) == "Teacher") {
                     designationOrCourseLevel.setText("Designation");
                     listCourse.add("Select Designation");
@@ -258,25 +265,52 @@ public class RegistrationActivity extends AppCompatActivity {
                     listCourse.add("Lecturer");
                     listCourse.add("Professor");
                     batchCode.setEnabled(false);
+                    identity.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
                 } else if (String.valueOf(type.getSelectedItem()) == "Student") {
                     designationOrCourseLevel.setText("Course");
                     listCourse.add("Select Course Name");
                     listCourse.add("PGDIT");
                     listCourse.add("MIT");
-                    listBatch.add("Select Batch");
-                    listBatch = dbHelper.getBatchList();
                     batchCode.setEnabled(true);
+                }
+
+                addListenerChangeCourse();
+
+                ArrayAdapter<String> dataAdapterCourse = new ArrayAdapter<String>(RegistrationActivity.this,
+                        android.R.layout.simple_spinner_item, listCourse);
+                dataAdapterCourse.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                designationOrCourseName.setAdapter(dataAdapterCourse);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    // get the selected dropdown list value
+    public void addListenerChangeCourse() {
+
+        designationOrCourseName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                batchCode = (Spinner) findViewById(R.id.batchCode);
+
+                List<String> listBatch = new ArrayList<>();
+                listBatch.add("Select Batch");
+                listBatch = dbHelper.getBatchList(String.valueOf(designationOrCourseName.getSelectedItem()));
+                identity.setText("");
+                if (String.valueOf(designationOrCourseName.getSelectedItem()) == "PGDIT") {
+                    identity.setFilters(new InputFilter[]{new InputFilter.LengthFilter(4)});
+                } else if (String.valueOf(designationOrCourseName.getSelectedItem()) == "MIT") {
+                    identity.setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
                 }
 
                 ArrayAdapter<String> dataAdapterBatch = new ArrayAdapter<String>(RegistrationActivity.this,
                         android.R.layout.simple_spinner_item, listBatch);
                 dataAdapterBatch.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 batchCode.setAdapter(dataAdapterBatch);
-
-                ArrayAdapter<String> dataAdapterCourse = new ArrayAdapter<String>(RegistrationActivity.this,
-                        android.R.layout.simple_spinner_item, listCourse);
-                dataAdapterCourse.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                designationOrCourseName.setAdapter(dataAdapterCourse);
             }
 
             @Override

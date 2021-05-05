@@ -55,8 +55,7 @@ public class EditProfileActivity extends AppCompatActivity {
     final String secretKey = "ssshhhhhhhhhhh!!!!";
 
     EditText editFullName, editEmail, editMobile, editPassword, editConfirmPassword;
-    TextView editGender, editBatchCode, editIdentity, editType;
-    Spinner editDesignationOrCourseName;
+    TextView editGender, editBatchCode, editIdentity, editType, editDesignationOrCourseName;
     CircleImageView imageView;
     private static final int PICK_IMAGE = 1;
     Uri imageUri;
@@ -89,7 +88,7 @@ public class EditProfileActivity extends AppCompatActivity {
         editMobile = (EditText) findViewById(R.id.editMobile);
         editPassword = (EditText) findViewById(R.id.editPassword);
         editConfirmPassword = (EditText) findViewById(R.id.editConfirmPassword);
-        editDesignationOrCourseName = (Spinner) findViewById(R.id.editDesignationOrCourseName);
+        editDesignationOrCourseName = (TextView) findViewById(R.id.editDesignationOrCourseName);
 
         updateBtn = (Button) findViewById(R.id.profileUpdateBtn);
 
@@ -127,26 +126,25 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
-        addItemsOnSpinner(users.getType());
         setDataInColumn(users);
 
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-
+                boolean checkUser = dbHelper.getByEmail(editEmail.getText().toString());
                 if (editFullName.getText().toString().equals("")) {
                     Toast.makeText(EditProfileActivity.this, "Please Full Name is Required!!!", Toast.LENGTH_LONG).show();
                 } else if (editEmail.getText().toString().equals("")) {
                     Toast.makeText(EditProfileActivity.this, "Please Email is Required!!!", Toast.LENGTH_LONG).show();
-                } else if ((String.valueOf(editType.getText().toString()) == "Student") || (String.valueOf(editDesignationOrCourseName.getSelectedItem()) == "Select Course Name")) {
-                    Toast.makeText(EditProfileActivity.this, "Course Name is Required!!!", Toast.LENGTH_LONG).show();
                 } else if (editPassword.getText().toString().equals("")) {
                     Toast.makeText(EditProfileActivity.this, "Please Password is Required!!!", Toast.LENGTH_LONG).show();
                 } else if (editConfirmPassword.getText().toString().equals("")) {
                     Toast.makeText(EditProfileActivity.this, "Please Confirm Password is Required!!!", Toast.LENGTH_LONG).show();
                 } else if (!editPassword.getText().toString().equals(editConfirmPassword.getText().toString())) {
                     Toast.makeText(EditProfileActivity.this, "Password not Match", Toast.LENGTH_LONG).show();
+                }else if(checkUser){
+                    Toast.makeText(EditProfileActivity.this, "This Email are Already Exist!!!", Toast.LENGTH_SHORT).show();
                 } else {
                     builder.setMessage("Welcome to Alert Dialog")
                             .setTitle("Alert Dialog");
@@ -164,7 +162,6 @@ public class EditProfileActivity extends AppCompatActivity {
                                     users.setBatchCode(editBatchCode.getText().toString().trim());
                                     users.setIdentity(editIdentity.getText().toString().trim());
                                     users.setType(editType.getText().toString());
-                                    users.setDesignationOrCourse(String.valueOf(editDesignationOrCourseName.getSelectedItem()));
                                     users.setPassword(HashMD5.passwordHashing(editPassword.getText().toString().trim()));
                                     users.setConfirmPassword(HashMD5.passwordHashing(editConfirmPassword.getText().toString().trim()));
                                     users.setImageName(editIdentity.getText().toString().trim());
@@ -225,29 +222,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
     }
 
-    // add items into spinner dynamically
-    public void addItemsOnSpinner(String type) {
-        List<String> listCourse = new ArrayList<>();
-        if (type.equals("Teacher")) {
-            listCourse.add("Select Designation");
-            listCourse.add("Assistant Professor");
-            listCourse.add("Associate Professor");
-            listCourse.add("Director");
-            listCourse.add("Lecturer");
-            listCourse.add("Professor");
-        } else if (type.equals("Student")) {
-            listCourse.add("Select Course Name");
-            listCourse.add("PGDIT");
-            listCourse.add("MIT");
-        }
-
-        ArrayAdapter<String> dataAdapterCourse = new ArrayAdapter<String>(EditProfileActivity.this,
-                android.R.layout.simple_spinner_item, listCourse);
-        dataAdapterCourse.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        editDesignationOrCourseName.setAdapter(dataAdapterCourse);
-
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -292,14 +266,6 @@ public class EditProfileActivity extends AppCompatActivity {
         editType.setText(users.getType());
         editBatchCode.setText(users.getBatchCode());
         editIdentity.setText(users.getIdentity());
-//        editDesignationOrCourseName.setSelection(editDesignationOrCourseName.getItemAtPosition());
-        editDesignationOrCourseName.setSelection(
-                (
-                        (ArrayAdapter) editDesignationOrCourseName.getAdapter()
-                ).getPosition(
-                        users.getDesignationOrCourse()
-                )
-        );
 
         File filePath = Environment.getExternalStorageDirectory();
         File dir = new File(filePath.getAbsolutePath()+"/userImages/");

@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:linksClickable="true"
-                    android:textColor="@color/red"
+                    android:textColor="@color/aqua"
                     android:gravity="center_vertical|center_horizontal"
                     android:textSize="20sp" />
             </LinearLayout>

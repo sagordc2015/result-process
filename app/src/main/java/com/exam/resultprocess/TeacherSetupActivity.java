@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -42,7 +43,7 @@ public class TeacherSetupActivity extends AppCompatActivity {
 
     Spinner spinnerTeacherId, spinnerBatchCode, spinnerCourseName, spinnerSubjectCode, spinnerSemester;
     TextView teacherName, designation;
-    Button submitBtn;
+    Button submitBtn, clearBtn;
 
     DBHelper dbHelper;
     AlertDialog.Builder builder;
@@ -71,6 +72,8 @@ public class TeacherSetupActivity extends AppCompatActivity {
         designation = (TextView) findViewById(R.id.showDesignation);
 
         submitBtn = (Button) findViewById(R.id.submitTeacherSetup);
+        clearBtn = (Button) findViewById(R.id.clearTeacherSetup);
+        clearBtn.setBackgroundColor(Color.RED);
 
         usernameToolbar.setText(session.get("username"));
         String imagePath = session.get("imagePath");
@@ -152,6 +155,19 @@ public class TeacherSetupActivity extends AppCompatActivity {
                 }
             }
         });
+
+        clearBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spinnerTeacherId.setSelection(0);
+                teacherName.setText("");
+                designation.setText("");
+                spinnerCourseName.setSelection(0);
+                spinnerBatchCode.setSelection(0);
+                spinnerSubjectCode.setSelection(0);
+                spinnerSemester.setSelection(0);
+            }
+        });
     }
 
     // add items into spinner dynamically
@@ -163,13 +179,6 @@ public class TeacherSetupActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, listTeacherId);
         dataAdapterTeacherId.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTeacherId.setAdapter(dataAdapterTeacherId);
-
-        List<String> listBatchCode = dbHelper.getBatchList();
-
-        ArrayAdapter<String> dataAdapterBatchCode = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, listBatchCode);
-        dataAdapterBatchCode.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerBatchCode.setAdapter(dataAdapterBatchCode);
 
         List<String> listCourseName = new ArrayList<>();
         listCourseName.add("Select Type");
@@ -260,6 +269,13 @@ public class TeacherSetupActivity extends AppCompatActivity {
                     listSemester.add("4th Semester");
 
                 }
+
+                List<String> listBatchCode = dbHelper.getBatchList(String.valueOf(spinnerCourseName.getSelectedItem()));
+
+                ArrayAdapter<String> dataAdapterBatchCode = new ArrayAdapter<String>(TeacherSetupActivity.this,
+                        android.R.layout.simple_spinner_item, listBatchCode);
+                dataAdapterBatchCode.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerBatchCode.setAdapter(dataAdapterBatchCode);
 
                 ArrayAdapter<String> dataAdapterSubjectCode = new ArrayAdapter<String>(TeacherSetupActivity.this,
                         android.R.layout.simple_spinner_item, listSubjectCode);
