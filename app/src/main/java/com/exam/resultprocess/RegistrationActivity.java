@@ -124,7 +124,10 @@ public class RegistrationActivity extends AppCompatActivity {
                     Toast.makeText(RegistrationActivity.this, "Please ID length 6 digit!!!", Toast.LENGTH_LONG).show();
                 } else if ((String.valueOf(designationOrCourseName.getSelectedItem()) == "MIT") && (identity.getText().toString().length() < 5)) {
                     Toast.makeText(RegistrationActivity.this, "Please ID length 5 digit!!!", Toast.LENGTH_LONG).show();
-                } else if ((identity.getText().toString().length() == 4) && (Integer.parseInt(identity.getText().toString().substring(identity.length() - 2, identity.length())) > 40) || Integer.parseInt(identity.getText().toString().substring(2, 4)) < 1) {
+                } else if (
+                        (String.valueOf(type.getSelectedItem()) == "Student") &&
+                        (identity.getText().toString().length() >= 4) &&
+                        ((Integer.parseInt(identity.getText().toString().substring(identity.length() - 2, identity.length())) > 40) || Integer.parseInt(identity.getText().toString().substring(identity.length() - 2, identity.length())) < 1)) {
                     Toast.makeText(RegistrationActivity.this, "Please ID must between 1-40 number!!!", Toast.LENGTH_LONG).show();
                 } else if (String.valueOf(type.getSelectedItem()).equals("Select Type")) {
                     Toast.makeText(RegistrationActivity.this, "Type is Required!!!", Toast.LENGTH_LONG).show();
