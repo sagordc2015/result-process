@@ -61,13 +61,13 @@ public class DashboardActivity extends AppCompatActivity {
         imageViewProfile.setImageBitmap(bitmap);
         String type = session.get("type");
         String userid = session.get("userid");
-        if((type.equals("Teacher")) && (userid.equals("1234"))){
+        if((type.equals("Teacher")) && (userid.equals("123456"))){
             cardViewBatch.setVisibility(View.VISIBLE);
             cardViewTeacher.setVisibility(View.VISIBLE);
             cardViewShowResult.setVisibility(View.GONE);
             cardViewShowAllResult.setVisibility(View.VISIBLE);
             cardViewInputResult.setVisibility(View.GONE);
-        }else if((type.equals("Teacher")) && (!userid.equals("1234"))){
+        }else if((type.equals("Teacher")) && (!userid.equals("123456"))){
             cardViewBatch.setVisibility(View.GONE);
             cardViewTeacher.setVisibility(View.GONE);
             cardViewShowResult.setVisibility(View.GONE);
