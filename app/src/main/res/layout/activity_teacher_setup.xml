@@ -125,19 +125,19 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="35dp"
-                android:text="Batch Code"
+                android:text="Course Name"
                 android:gravity="center"
                 android:background="@color/white"
                 android:layout_marginLeft="20dp"
                 />
 
             <Spinner
-                android:id="@+id/spinnerBatchCode"
+                android:id="@+id/spinnerCourseName"
                 android:inputType="number"
                 android:layout_width="195dp"
                 android:layout_height="35dp"
                 android:gravity="center"
-                android:hint="Batch Code"
+                android:hint="Course Name"
                 android:textColorHint="@color/black"
                 android:background="@color/white"
                 android:layout_marginLeft="10dp"/>
@@ -155,19 +155,19 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="35dp"
-                android:text="Course Name"
+                android:text="Batch Code"
                 android:gravity="center"
                 android:background="@color/white"
                 android:layout_marginLeft="20dp"
                 />
 
             <Spinner
-                android:id="@+id/spinnerCourseName"
+                android:id="@+id/spinnerBatchCode"
                 android:inputType="number"
                 android:layout_width="195dp"
                 android:layout_height="35dp"
                 android:gravity="center"
-                android:hint="Course Name"
+                android:hint="Batch Code"
                 android:textColorHint="@color/black"
                 android:background="@color/white"
                 android:layout_marginLeft="10dp"/>
@@ -245,6 +245,14 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="submit"/>
+
+            <Button
+                android:id="@+id/clearTeacherSetup"
+                android:layout_marginTop="10dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="clear"/>
 
         </LinearLayout>
 

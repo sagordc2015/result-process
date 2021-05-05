@@ -209,7 +209,6 @@ public class DBHelper extends SQLiteOpenHelper {
             values.put("fullName", users.getFullName());
             values.put("email", users.getEmail());
             values.put("mobile", users.getMobile());
-            values.put("designationOrCourseName", users.getDesignationOrCourse());
             values.put("password", users.getPassword());
             values.put("confirmPassword", users.getConfirmPassword());
 
@@ -266,6 +265,22 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean getByEmail(String email){
+        Cursor cursor = null;
+        try{
+            SQLiteDatabase db = this.getReadableDatabase();
+            String sql = "SELECT * FROM Users WHERE email = ?";
+            cursor = db.rawQuery(sql, new String[]{email});
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        if(cursor.moveToFirst()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     public List<String> getTeacherList(){
         List<String> lists = new ArrayList<>();
         lists.add("Select Teacher");
@@ -285,14 +300,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // BATCHS TABLE
 
-    public List<String> getBatchList(){
+    public List<String> getBatchList(String courseName){
         List<String> lists = new ArrayList<>();
         lists.add("Select Batch");
         Cursor cursor = null;
         try{
             SQLiteDatabase db = this.getReadableDatabase();
-            String sql = "SELECT * FROM Batchs ORDER BY batchCode";
-            cursor = db.rawQuery(sql, new String[]{});
+            String sql = "SELECT * FROM Batchs WHERE courseName = ? ORDER BY batchCode";
+            cursor = db.rawQuery(sql, new String[]{courseName});
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 lists.add(cursor.getString(cursor.getColumnIndex("batchCode")));
             }

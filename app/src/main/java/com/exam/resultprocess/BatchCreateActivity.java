@@ -9,8 +9,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,6 +46,7 @@ public class BatchCreateActivity extends AppCompatActivity {
     EditText batchCode, batchYear;
     TextView batchYearLevel;
     Button batchSubmit;
+    Button batchClear;
 
     DBHelper dbHelper;
     AlertDialog.Builder builder;
@@ -72,6 +75,8 @@ public class BatchCreateActivity extends AppCompatActivity {
         batchYear = (EditText) findViewById(R.id.batchYear);
         batchYearLevel = (TextView) findViewById(R.id.batchYearLevel);
         batchSubmit = (Button) findViewById(R.id.batchSubmit);
+        batchClear = (Button) findViewById(R.id.batchClear);
+        batchClear.setBackgroundColor(Color.RED);
         addItemsOnSpinner();
 
         homeIcon.setOnClickListener(new View.OnClickListener() {
@@ -86,12 +91,11 @@ public class BatchCreateActivity extends AppCompatActivity {
         course.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(course.getSelectedItem().equals("MIT")){
-                    batchYear.setVisibility(View.INVISIBLE);
-                    batchYearLevel.setVisibility(View.INVISIBLE);
-                }else{
-                    batchYear.setVisibility(View.VISIBLE);
-                    batchYearLevel.setVisibility(View.VISIBLE);
+                batchCode.setText("");
+                if (String.valueOf(course.getSelectedItem()) == "PGDIT") {
+                    batchCode.setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
+                } else if (String.valueOf(course.getSelectedItem()) == "MIT") {
+                    batchCode.setFilters(new InputFilter[]{new InputFilter.LengthFilter(3)});
                 }
             }
             @Override
@@ -111,6 +115,10 @@ public class BatchCreateActivity extends AppCompatActivity {
                     Toast.makeText(BatchCreateActivity.this, "Course name is Required!!!", Toast.LENGTH_SHORT).show();
                 }else if(batchCode.getText().toString().equals("")){
                     Toast.makeText(BatchCreateActivity.this, "Batch code is Required!!!", Toast.LENGTH_SHORT).show();
+                }else if(String.valueOf(course.getSelectedItem()) == "PGDIT" && batchCode.length() < 2){
+                    Toast.makeText(BatchCreateActivity.this, "Batch code only 2 digit!!!", Toast.LENGTH_SHORT).show();
+                }else if(String.valueOf(course.getSelectedItem()) == "MIT" && batchCode.length() < 3){
+                    Toast.makeText(BatchCreateActivity.this, "Batch code only 3 digit!!!", Toast.LENGTH_SHORT).show();
                 }else{
                     boolean check = dbHelper.checkByBatchCode(batchCode.getText().toString());
                     if(check){
@@ -151,6 +159,15 @@ public class BatchCreateActivity extends AppCompatActivity {
 
                     }
                 }
+            }
+        });
+
+        batchClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                course.setSelection(0);
+                batchCode.setText("");
+                batchYear.setText("");
             }
         });
     }
