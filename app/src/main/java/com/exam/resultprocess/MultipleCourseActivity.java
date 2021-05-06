@@ -67,7 +67,7 @@ public class MultipleCourseActivity extends AppCompatActivity {
             }
         });
 
-        if(userid.equals("1234")){
+        if(userid.equals("123456")){
             List<BatchSetup> batchSetups = dbHelper.getBatchsList();
 
             BatchListviewAdapter adapter = new BatchListviewAdapter(this, batchSetups);
@@ -80,6 +80,7 @@ public class MultipleCourseActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     TextView batchName = (TextView) view.findViewById(R.id.listViewBatchName);
+                    String[] name = batchName.getText().toString().split(" ");
                     Intent intent = new Intent(MultipleCourseActivity.this, CourseListviewActivity.class);
                     intent.putExtra("courseName", batchName.getText().toString());
                     startActivity(intent);

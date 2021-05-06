@@ -112,6 +112,8 @@ public class InputResultActivity extends AppCompatActivity {
                         course.setText(user.getDesignationOrCourse());
                         String teacherId = session.get("userid");
                         String batchCode = studentId.getText().toString().substring(0, studentId.length() - 2);
+                        System.out.println("BATCH CODE " + batchCode);
+                        session.set("batchCode", batchCode);
                         TeacherSetup teacherSetup = dbHelper.getBySubjectCode(teacherId, batchCode);
                         showSubjectCode.setText(teacherSetup.getSubjectCode());
                         showSemester.setText(teacherSetup.getSemester());
@@ -153,14 +155,15 @@ public class InputResultActivity extends AppCompatActivity {
                     }else{
                         builder.setMessage("Welcome to Alert Dialog")
                                 .setTitle("Alert Dialog");
-                        builder.setMessage("Do you want to create a Result ?")
+                        builder.setMessage("Do you want to submit the marks?")
                                 .setCancelable(false)
                                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         finish();
                                         Results result = new Results();
+                                        String courseName = course.getText().toString() + " " + session.get("batchCode");
                                         result.setStudentId(studentId.getText().toString());
-                                        result.setDesignationOrCourseName(course.getText().toString());
+                                        result.setDesignationOrCourseName(courseName);
                                         result.setSemester(showSemester.getText().toString());
                                         result.setAttendance(EncryptAndDecrypt.encrypt(attendance.getText().toString().trim(), secretKey));
                                         result.setAssignment(EncryptAndDecrypt.encrypt(assignment.getText().toString().trim(), secretKey));
