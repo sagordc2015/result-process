@@ -289,7 +289,7 @@ public class DBHelper extends SQLiteOpenHelper {
         try{
             SQLiteDatabase db = this.getReadableDatabase();
             String sql = "SELECT * FROM Users WHERE type = ? AND identity != ? ORDER BY identity";
-            cursor = db.rawQuery(sql, new String[]{"Teacher", "1234"});
+            cursor = db.rawQuery(sql, new String[]{"Teacher", "123456"});
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 lists.add(cursor.getString(cursor.getColumnIndex("identity")) + " - " + cursor.getString(cursor.getColumnIndex("fullName")));
             }
@@ -333,6 +333,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 batchSetup.setCourseName(cursor.getString(cursor.getColumnIndex("courseName")));
                 lists.add(batchSetup);
             }
+            System.out.println(lists.size() + " ******");
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -357,6 +358,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 teacherSetup.setSemester(cursor.getString(cursor.getColumnIndex("semester")));
                 lists.add(teacherSetup);
             }
+            System.out.println(lists.size() + " ---------- ");
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -522,6 +524,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 results.setSubjectCode(cursor.getString(cursor.getColumnIndex("subjectCode")));
                 resultList.add(results);
             }
+            System.out.println(resultList.size() + " //////");
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
