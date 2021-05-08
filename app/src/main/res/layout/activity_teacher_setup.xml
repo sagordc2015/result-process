@@ -5,227 +5,257 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
     android:background="@drawable/iit_background"
     tools:context=".TeacherSetupActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
-        <ImageView
-            android:layout_width="55dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/iit_logo"/>
-    </LinearLayout>
+    <include layout="@layout/toolbar"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        >
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical|center_horizontal">
 
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="35dp"
-            android:text="Teacher ID : "
-            android:background="@color/white"
-            android:gravity="center"
-            android:layout_marginLeft="20dp"
-            />
-
-        <Spinner
-            android:id="@+id/spinnerTeacherId"
-            android:inputType="number"
-            android:layout_width="195dp"
-            android:layout_height="35dp"
-            android:gravity="center"
-            android:hint="Batch Code"
-            android:textColorHint="@color/black"
-            android:background="@color/white"
-            android:layout_marginLeft="10dp"/>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        >
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="35dp"
-            android:text="Teacher Name : "
-            android:background="@color/white"
-            android:gravity="center"
-            android:layout_marginLeft="20dp"
-            />
-
-        <TextView
-            android:id="@+id/showTeacherName"
-            android:layout_width="195dp"
-            android:layout_height="35dp"
-            android:background="@color/white"
-            android:layout_marginLeft="10dp"
-            android:text="test"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        >
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="35dp"
-            android:text="Designation : "
-            android:gravity="center"
-            android:background="@color/white"
-            android:layout_marginLeft="20dp"
-            />
-
-        <TextView
-            android:id="@+id/showDesignation"
-            android:layout_width="195dp"
-            android:layout_height="35dp"
-            android:background="@color/white"
-            android:layout_marginLeft="10dp"
-            android:text="test"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        >
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="35dp"
-            android:text="Batch Code : "
-            android:gravity="center"
-            android:background="@color/white"
-            android:layout_marginLeft="20dp"
-            />
-
-        <Spinner
-            android:id="@+id/spinnerBatchCode"
-            android:inputType="number"
-            android:layout_width="195dp"
-            android:layout_height="35dp"
-            android:gravity="center"
-            android:hint="Batch Code"
-            android:textColorHint="@color/black"
-            android:background="@color/white"
-            android:layout_marginLeft="10dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        >
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="35dp"
-            android:text="Course Name : "
-            android:gravity="center"
-            android:background="@color/white"
-            android:layout_marginLeft="20dp"
-            />
-
-        <Spinner
-            android:id="@+id/spinnerCourseName"
-            android:inputType="number"
-            android:layout_width="195dp"
-            android:layout_height="35dp"
-            android:gravity="center"
-            android:hint="Course Name"
-            android:textColorHint="@color/black"
-            android:background="@color/white"
-            android:layout_marginLeft="10dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        >
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="35dp"
-            android:text="Subject Code : "
-            android:gravity="center"
-            android:layout_marginLeft="20dp"
-            android:background="@color/white"
-            />
-
-        <Spinner
-            android:id="@+id/spinnerSubjectCode"
-            android:inputType="number"
-            android:layout_width="195dp"
-            android:layout_height="35dp"
-            android:gravity="center"
-            android:hint="Subject Code"
-            android:textColorHint="@color/black"
-            android:background="@color/white"
-            android:layout_marginLeft="10dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        >
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="35dp"
-            android:text="Subject Name : "
-            android:gravity="center"
-            android:background="@color/white"
-            android:layout_marginLeft="20dp"
-            />
-
-        <TextView
-            android:id="@+id/showSubjectName"
-            android:layout_width="195dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="10dp"
-            android:background="@color/white"
-            android:text="test"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
-
-        <Button
-            android:id="@+id/submitTeacherSetup"
-            android:layout_marginTop="10dp"
-            android:layout_width="150dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="submit"/>
+            android:gravity="center_horizontal">
+            <ImageView
+                android:layout_width="75dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/iit_logo"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="5dp"
+            >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:text="Teacher ID"
+                android:background="@color/white"
+                android:gravity="center"
+                android:layout_marginLeft="20dp"
+                />
+
+            <Spinner
+                android:id="@+id/spinnerTeacherId"
+                android:inputType="number"
+                android:layout_width="195dp"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:hint="Batch Code"
+                android:textColorHint="@color/black"
+                android:background="@color/white"
+                android:layout_marginLeft="10dp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="5dp"
+            >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:text="Teacher Name"
+                android:background="@color/white"
+                android:gravity="center"
+                android:layout_marginLeft="20dp"
+                />
+
+            <TextView
+                android:id="@+id/showTeacherName"
+                android:layout_width="195dp"
+                android:layout_height="35dp"
+                android:background="@color/white"
+                android:layout_marginLeft="10dp"
+                android:text="Teacher Name"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="5dp"
+            >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:text="Designation"
+                android:gravity="center"
+                android:background="@color/white"
+                android:layout_marginLeft="20dp"
+                />
+
+            <TextView
+                android:id="@+id/showDesignation"
+                android:layout_width="195dp"
+                android:layout_height="35dp"
+                android:background="@color/white"
+                android:layout_marginLeft="10dp"
+                android:text="Designation"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="5dp"
+            >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:text="Course Name"
+                android:gravity="center"
+                android:background="@color/white"
+                android:layout_marginLeft="20dp"
+                />
+
+            <Spinner
+                android:id="@+id/spinnerCourseName"
+                android:inputType="number"
+                android:layout_width="195dp"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:hint="Course Name"
+                android:textColorHint="@color/black"
+                android:background="@color/white"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="5dp"
+            >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:text="Batch Code"
+                android:gravity="center"
+                android:background="@color/white"
+                android:layout_marginLeft="20dp"
+                />
+
+            <Spinner
+                android:id="@+id/spinnerBatchCode"
+                android:inputType="number"
+                android:layout_width="195dp"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:hint="Batch Code"
+                android:textColorHint="@color/black"
+                android:background="@color/white"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="5dp"
+            >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:text="Subject Code"
+                android:gravity="center"
+                android:layout_marginLeft="20dp"
+                android:background="@color/white"
+                />
+
+            <Spinner
+                android:id="@+id/spinnerSubjectCode"
+                android:inputType="number"
+                android:layout_width="195dp"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:hint="Subject Code"
+                android:textColorHint="@color/black"
+                android:background="@color/white"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="5dp"
+            >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:text="Semester "
+                android:gravity="center"
+                android:layout_marginLeft="20dp"
+                android:background="@color/white"
+                />
+
+            <Spinner
+                android:id="@+id/spinnerSemester"
+                android:inputType="number"
+                android:layout_width="195dp"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:hint="Subject Code"
+                android:textColorHint="@color/black"
+                android:background="@color/white"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal">
+
+            <Button
+                android:id="@+id/submitTeacherSetup"
+                android:layout_marginTop="10dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="submit"/>
+
+            <Button
+                android:id="@+id/clearTeacherSetup"
+                android:layout_marginTop="10dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="clear"/>
+
+        </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>

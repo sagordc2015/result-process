@@ -41,7 +41,6 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="5dp">
                 <TextView
-                    android:id="@+id/fullNameLavel"
                     android:layout_width="100dp"
                     android:layout_height="35dp"
                     android:text="Full Name : "
@@ -54,7 +53,7 @@
                     android:inputType="text"
                     android:layout_width="225dp"
                     android:layout_height="35dp"
-                    android:gravity="center"
+                    android:paddingLeft="10dp"
                     android:hint="Enter full name"
                     android:textSize="18dp"
                     android:textColorHint="@color/black"
@@ -70,7 +69,6 @@
                 android:layout_marginLeft="5dp">
 
                 <TextView
-                    android:id="@+id/emailLavel"
                     android:layout_width="100dp"
                     android:layout_height="35dp"
                     android:text="Email : "
@@ -83,43 +81,12 @@
                     android:inputType="textEmailAddress"
                     android:layout_width="225dp"
                     android:layout_height="35dp"
-                    android:gravity="center"
+                    android:paddingLeft="10dp"
                     android:hint="Enter email"
                     android:textSize="18dp"
                     android:textColorHint="@color/black"
                     android:background="@color/white"
                     android:layout_marginLeft="5dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp">
-
-                <TextView
-                    android:id="@+id/identityLevel"
-                    android:layout_width="100dp"
-                    android:layout_height="35dp"
-                    android:text="ID : "
-                    android:textSize="18dp"
-                    android:textColor="@color/blue"
-                    android:background="@color/white"
-                    android:gravity="center"/>
-                <EditText
-                    android:id="@+id/identity"
-                    android:inputType="number"
-                    android:layout_width="225dp"
-                    android:layout_height="35dp"
-                    android:background="@color/white"
-                    android:layout_marginLeft="5dp"
-                    android:gravity="center"
-                    android:hint="Enter ID"
-                    android:textSize="18dp"
-                    android:maxLength="4"
-                    android:textColorHint="@color/black"/>
-
             </LinearLayout>
 
             <LinearLayout
@@ -143,7 +110,7 @@
                     android:layout_width="225dp"
                     android:layout_height="35dp"
                     android:background="@color/white"
-                    android:gravity="center"
+                    android:paddingLeft="10dp"
                     android:orientation="horizontal"
                     android:layout_marginLeft="5dp">
                     <RadioButton
@@ -158,6 +125,7 @@
                 </RadioGroup>
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -174,19 +142,27 @@
                     android:textColor="@color/blue"
                     android:background="@color/white"
                     android:gravity="center"/>
+                <TextView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:gravity="center"
+                    android:text="01"
+                    android:textSize="18dp"
+                    android:textColorHint="@color/black"
+                    android:background="@color/white"
+                    android:layout_marginLeft="5dp" />
                 <EditText
                     android:id="@+id/mobile"
                     android:inputType="number"
-                    android:layout_width="225dp"
+                    android:layout_width="185dp"
                     android:layout_height="35dp"
                     android:gravity="center"
                     android:hint="Enter mobile number"
                     android:textSize="18dp"
+                    android:maxLength="9"
                     android:textColorHint="@color/black"
                     android:background="@color/white"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toEndOf="@+id/mobileLavel"
-                    android:layout_toRightOf="@+id/mobileLavel" />
+                    android:layout_marginLeft="5dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -207,16 +183,12 @@
                     android:gravity="center"/>
                 <Spinner
                     android:id="@+id/type"
-                    android:inputType="number"
                     android:layout_width="225dp"
                     android:layout_height="35dp"
                     android:gravity="center"
-                    android:hint="Enter mobile number"
-                    android:textColorHint="@color/black"
                     android:background="@color/white"
                     android:layout_marginLeft="5dp"
-                    android:layout_toEndOf="@+id/typeLavel"
-                    android:layout_toRightOf="@+id/typeLavel" />
+                    android:spinnerMode="dropdown"/>
             </LinearLayout>
 
             <LinearLayout
@@ -230,23 +202,70 @@
                     android:id="@+id/designationOrCourseLavel"
                     android:layout_width="100dp"
                     android:layout_height="35dp"
-                    android:text="Course : "
+                    android:text="Course"
                     android:textSize="18dp"
                     android:textColor="@color/blue"
                     android:background="@color/white"
                     android:gravity="center"/>
                 <Spinner
                     android:id="@+id/designationOrCourseName"
-                    android:inputType="number"
                     android:layout_width="225dp"
                     android:layout_height="35dp"
                     android:gravity="center"
-                    android:hint="Enter mobile number"
-                    android:textColorHint="@color/black"
                     android:background="@color/white"
                     android:layout_marginLeft="5dp"
-                    android:layout_toEndOf="@+id/designationOrCourseLavel"
-                    android:layout_toRightOf="@+id/designationOrCourseLavel" />
+                    android:spinnerMode="dropdown"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="35dp"
+                    android:text="Batch : "
+                    android:textSize="18dp"
+                    android:textColor="@color/blue"
+                    android:background="@color/white"
+                    android:gravity="center"/>
+
+                <Spinner
+                    android:id="@+id/batchCode"
+                    android:layout_width="75dp"
+                    android:layout_height="35dp"
+                    android:background="@color/white"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown"
+                    />
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:text="ID : "
+                    android:textSize="18dp"
+                    android:textColor="@color/blue"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:layout_marginLeft="5dp"/>
+
+                <EditText
+                    android:id="@+id/identity"
+                    android:inputType="number"
+                    android:layout_width="100dp"
+                    android:layout_height="35dp"
+                    android:background="@color/white"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:hint="Enter ID"
+                    android:textSize="18dp"
+                    android:maxLength="4"
+                    android:textColorHint="@color/black"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -275,7 +294,6 @@
                 android:layout_marginLeft="5dp">
 
                 <TextView
-                    android:id="@+id/passwordLavel"
                     android:layout_width="100dp"
                     android:layout_height="35dp"
                     android:text="Password : "
@@ -287,7 +305,7 @@
                 <EditText
                     android:id="@+id/password"
                     android:inputType="textPassword"
-                    android:gravity="center"
+                    android:paddingLeft="10dp"
                     android:layout_width="225dp"
                     android:layout_height="35dp"
                     android:hint="Enter Password"
@@ -319,12 +337,11 @@
                     android:inputType="textPassword"
                     android:layout_width="225dp"
                     android:layout_height="35dp"
-                    android:gravity="center"
+                    android:paddingLeft="10dp"
                     android:hint="Enter Confirm Password"
                     android:textSize="18dp"
                     android:textColorHint="@color/black"
                     android:background="@color/white"
-
                     android:layout_marginLeft="5dp"/>
 
             </LinearLayout>
@@ -359,13 +376,8 @@
 
             </LinearLayout>
 
-
-
         </LinearLayout>
 
     </ScrollView>
-
-
-
 
 </LinearLayout>
