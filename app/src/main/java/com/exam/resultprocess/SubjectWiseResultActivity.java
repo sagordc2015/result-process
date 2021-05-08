@@ -58,8 +58,14 @@ public class SubjectWiseResultActivity extends AppCompatActivity {
 
         String subjectCode = getIntent().getExtras().getString("subjectCode");
         String batchCode = getIntent().getExtras().getString("batchCode");
+        System.out.println(subjectCode + " ******* " + batchCode);
         TeacherSetup teacherSetup = dbHelper.getBySubjectCode(userid, batchCode);
-        batchCode = "PGDIT " + batchCode;
+        if(subjectCode.contains("PGD")){
+            batchCode = "PGDIT " + batchCode;
+        }else if(subjectCode.contains("MIT")){
+            batchCode = "MIT " + batchCode;
+        }
+
         List<Results> results = dbHelper.getSubjectAndBatchWiseResult(subjectCode, batchCode);
 
         homeIcon.setOnClickListener(new View.OnClickListener() {
