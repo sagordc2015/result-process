@@ -244,29 +244,29 @@ public class TeacherSetupActivity extends AppCompatActivity {
                     listSubjectCode.add("MITM302 - Computer Programming");
                     listSubjectCode.add("MITM303 - Client Server Technology and System Programming");
                     listSubjectCode.add("MITM304 - Database Architecture and Administration");
-                    listSubjectCode.add("MITM305 - Internet Computing");
+                    listSubjectCode.add("MITM305 - Web Technology and Internet Computing");
                     listSubjectCode.add("MITM306 - Advanced Computer Networks & Internetworking");
+                    listSubjectCode.add("MITM307 - Advanced Data Structures and Algorithms");
                     listSubjectCode.add("MITE401 - Data Mining and Warehousing");
-                    listSubjectCode.add("MITE402 - E-Commerce Technologies in E-Business");
-                    listSubjectCode.add("MITE403 - Computer, Data, Network Security/E-Security");
-                    listSubjectCode.add("MITE404 - Parallel and Distributed Processing");
-                    listSubjectCode.add("MITE405 - Computer Graphics and Multimedia");
-                    listSubjectCode.add("MITE406 - Simulation and Modeling");
-                    listSubjectCode.add("MITE407 - Mobile and Cellular Communications");
-                    listSubjectCode.add("MITE408 - Decision Support System and Intelligent Systems");
-                    listSubjectCode.add("MITE409 - E-Governance");
-                    listSubjectCode.add("MITE410 - Business System");
-                    listSubjectCode.add("MITE411 - Bioinformatics");
+                    listSubjectCode.add("MITE402 - Artificial Intelligence");
+                    listSubjectCode.add("MITE403 - Network Security");
+                    listSubjectCode.add("MITE404 - Machine Learning");
+                    listSubjectCode.add("MITE405 - Big Data Analytics");
+                    listSubjectCode.add("MITE406 - Internet of Things (IoT)");
+                    listSubjectCode.add("MITE407 - Cryptography and Security Mechanisms");
+                    listSubjectCode.add("MITE408 - Secured Software System");
+                    listSubjectCode.add("MITE409 - Cyber Security");
+                    listSubjectCode.add("MITE410 - Software Requirements Engineering and Design");
+                    listSubjectCode.add("MITE411 - Software Design Pattern");
                     listSubjectCode.add("MITE412 - Advanced Object Oriented Programming");
-                    listSubjectCode.add("MITE413 - Strategic Management");
-                    listSubjectCode.add("MITE414 - Software Testing");
+                    listSubjectCode.add("MITE413 - Software Quality Assurance and Testing");
+                    listSubjectCode.add("MITE414 - Software Maintenance and Analytics");
                     listSubjectCode.add("MITP421 - Project for MIT");
                     listSubjectCode.add("MITI422 - Industrial Attachment");
 
                     listSemester.add("1st Semester");
                     listSemester.add("2nd Semester");
                     listSemester.add("3rd Semester");
-                    listSemester.add("4th Semester");
 
                 }
 

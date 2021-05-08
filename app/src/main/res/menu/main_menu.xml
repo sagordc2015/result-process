@@ -11,7 +11,7 @@
         <menu>
             <item
                 android:id="@+id/profileItem"
-                android:title="Profile"
+                android:title="Edit Profile"
                 android:icon="@drawable/ic_baseline_person_edit"
                 app:showAsAction="never"/>
             <item
