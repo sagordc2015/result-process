@@ -122,7 +122,7 @@ public class BatchCreateActivity extends AppCompatActivity {
                 }else{
                     boolean check = dbHelper.checkByBatchCode(batchCode.getText().toString());
                     if(check){
-                        Toast.makeText(BatchCreateActivity.this, "Batch code are already Exists!!!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BatchCreateActivity.this, "Batch code is already Exists!!!", Toast.LENGTH_SHORT).show();
                     }else {
                         builder.setMessage("Welcome to Alert Dialog")
                                 .setTitle("Alert Dialog");

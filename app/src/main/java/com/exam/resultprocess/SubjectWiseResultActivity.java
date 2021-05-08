@@ -58,7 +58,6 @@ public class SubjectWiseResultActivity extends AppCompatActivity {
 
         String subjectCode = getIntent().getExtras().getString("subjectCode");
         String batchCode = getIntent().getExtras().getString("batchCode");
-        System.out.println(subjectCode + " ******* " + batchCode);
         TeacherSetup teacherSetup = dbHelper.getBySubjectCode(userid, batchCode);
         if(subjectCode.contains("PGD")){
             batchCode = "PGDIT " + batchCode;
@@ -76,9 +75,6 @@ public class SubjectWiseResultActivity extends AppCompatActivity {
             }
         });
 
-        System.out.println(teacherSetup.getSubjectCode());
-        System.out.println(teacherSetup.getSubjectName());
-        System.out.println(teacherSetup.getSemester());
         subCode.setText(teacherSetup.getSubjectCode());
         subName.setText(teacherSetup.getSubjectName());
         semester.setText(teacherSetup.getSemester());
