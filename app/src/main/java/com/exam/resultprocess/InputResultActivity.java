@@ -128,7 +128,7 @@ public class InputResultActivity extends AppCompatActivity {
             public void onClick(View v) {
                 boolean check = dbHelper.checkByResult(studentId.getText().toString(), showSubjectCode.getText().toString());
                 if(check){
-                    Toast.makeText(InputResultActivity.this, "This data are already exists!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(InputResultActivity.this, "This data is already exists!!!", Toast.LENGTH_SHORT).show();
                 }else{
                     if(studentId.getText().toString() == ""){
                         Toast.makeText(InputResultActivity.this, "Student ID is Required!!!", Toast.LENGTH_SHORT).show();

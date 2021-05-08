@@ -115,7 +115,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 Toast.makeText(context, "Data insert successfully", Toast.LENGTH_LONG).show();
                 db.close();
             }else{
-                Toast.makeText(context, "Fail data inserted", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Data inserted Fail", Toast.LENGTH_LONG).show();
             }
         }catch (Exception e){
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -146,7 +146,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 Toast.makeText(context, "Data insert successfully", Toast.LENGTH_LONG).show();
                 db.close();
             }else{
-                Toast.makeText(context, "Fail data inserted", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Data inserted Fail", Toast.LENGTH_LONG).show();
             }
         }catch (Exception e){
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -168,7 +168,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 Toast.makeText(context, "Data insert successfully", Toast.LENGTH_LONG).show();
                 db.close();
             }else{
-                Toast.makeText(context, "Fail data inserted", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Data inserted Fail", Toast.LENGTH_LONG).show();
             }
         }catch (Exception e){
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -194,7 +194,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 Toast.makeText(context, "Data insert successfully", Toast.LENGTH_LONG).show();
                 db.close();
             }else{
-                Toast.makeText(context, "Fail data inserted", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Data inserted Fail", Toast.LENGTH_LONG).show();
             }
         }catch (Exception e){
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -217,7 +217,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 Toast.makeText(context, "Data Update successfully", Toast.LENGTH_LONG).show();
                 db.close();
             }else{
-                Toast.makeText(context, "Fail data update", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Data update Fail", Toast.LENGTH_LONG).show();
             }
         }catch (Exception e){
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -333,7 +333,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 batchSetup.setCourseName(cursor.getString(cursor.getColumnIndex("courseName")));
                 lists.add(batchSetup);
             }
-            System.out.println(lists.size() + " ******");
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -358,7 +357,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 teacherSetup.setSemester(cursor.getString(cursor.getColumnIndex("semester")));
                 lists.add(teacherSetup);
             }
-            System.out.println(lists.size() + " ---------- ");
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -524,7 +522,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 results.setSubjectCode(cursor.getString(cursor.getColumnIndex("subjectCode")));
                 resultList.add(results);
             }
-            System.out.println(resultList.size() + " //////");
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
