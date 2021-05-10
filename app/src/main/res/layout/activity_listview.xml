@@ -12,6 +12,14 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/resultRoll"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:textSize="16dip"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/resultSubjectCode"
             android:layout_width="120dp"
             android:layout_height="wrap_content"

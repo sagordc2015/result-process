@@ -85,6 +85,7 @@
                         android:id="@+id/showFullName"
                         android:layout_width="200dp"
                         android:layout_height="35dp"
+                        android:textColor="@color/black"
                         android:gravity="center"
                         android:layout_marginLeft="5dp"
                         android:background="@color/white"/>
@@ -110,6 +111,7 @@
                         android:layout_width="200dp"
                         android:layout_height="35dp"
                         android:gravity="center"
+                        android:textColor="@color/black"
                         android:layout_marginLeft="5dp"
                         android:background="@color/white"/>
                 </LinearLayout>
@@ -134,6 +136,7 @@
                         android:layout_width="200dp"
                         android:layout_height="35dp"
                         android:gravity="center"
+                        android:textColor="@color/black"
                         android:layout_marginLeft="5dp"
                         android:background="@color/white"/>
                 </LinearLayout>
@@ -158,6 +161,7 @@
                         android:layout_width="200dp"
                         android:layout_height="35dp"
                         android:gravity="center"
+                        android:textColor="@color/black"
                         android:layout_marginLeft="5dp"
                         android:background="@color/white"/>
                 </LinearLayout>
@@ -182,6 +186,7 @@
                         android:layout_width="200dp"
                         android:layout_height="35dp"
                         android:gravity="center"
+                        android:textColor="@color/black"
                         android:layout_marginLeft="5dp"
                         android:background="@color/white"/>
                 </LinearLayout>
@@ -206,6 +211,7 @@
                         android:layout_width="200dp"
                         android:layout_height="35dp"
                         android:gravity="center"
+                        android:textColor="@color/black"
                         android:layout_marginLeft="5dp"
                         android:background="@color/white"/>
                 </LinearLayout>
@@ -231,6 +237,7 @@
                         android:layout_height="45dp"
                         android:layout_marginLeft="5dp"
                         android:gravity="center"
+                        android:textColor="@color/black"
                         android:background="@color/white"/>
                 </LinearLayout>
 
@@ -256,6 +263,8 @@
                         android:hint="5%"
                         android:gravity="center"
                         android:maxLength="1"
+                        android:textColor="@color/black"
+                        android:inputType="numberDecimal"
                         android:layout_marginLeft="5dp"
                         android:background="@color/white"/>
                     <TextView
@@ -273,6 +282,8 @@
                         android:hint="10%"
                         android:gravity="center"
                         android:maxLength="2"
+                        android:textColor="@color/black"
+                        android:inputType="numberDecimal"
                         android:layout_marginLeft="5dp"
                         android:background="@color/white"/>
                 </LinearLayout>
@@ -299,6 +310,8 @@
                         android:hint="5%"
                         android:gravity="center"
                         android:maxLength="1"
+                        android:textColor="@color/black"
+                        android:inputType="numberDecimal"
                         android:layout_marginLeft="5dp"
                         android:background="@color/white"/>
                     <TextView
@@ -316,6 +329,8 @@
                         android:layout_marginLeft="5dp"
                         android:hint="20%"
                         android:maxLength="2"
+                        android:textColor="@color/black"
+                        android:inputType="numberDecimal"
                         android:background="@color/white"/>
                 </LinearLayout>
 
@@ -340,6 +355,8 @@
                         android:layout_height="45dp"
                         android:hint="Total marks 60%"
                         android:maxLength="2"
+                        android:textColor="@color/black"
+                        android:inputType="numberDecimal"
                         android:layout_marginLeft="5dp"
                         android:background="@color/white"/>
                 </LinearLayout>
