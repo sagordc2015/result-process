@@ -17,6 +17,7 @@ import java.util.List;
 
 public class ResultsAdapter extends ArrayAdapter<Results> {
 
+    private Session session;
     final String secretKey = "ssshhhhhhhhhhh!!!!";
 
     public ResultsAdapter(Context context, List<Results> results) {
@@ -30,9 +31,11 @@ public class ResultsAdapter extends ArrayAdapter<Results> {
         Results results = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
+            session = new Session(getContext());
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_listview, parent, false);
         }
         // Lookup view for data population
+        TextView roll = (TextView) convertView.findViewById(R.id.resultRoll);
         TextView subjectCode = (TextView) convertView.findViewById(R.id.resultSubjectCode);
         TextView attendance = (TextView) convertView.findViewById(R.id.resultAttendance);
         TextView assignment = (TextView) convertView.findViewById(R.id.resultAssignment);
@@ -45,6 +48,8 @@ public class ResultsAdapter extends ArrayAdapter<Results> {
         TextView remarks = (TextView) convertView.findViewById(R.id.resultRemarks);
 
         // Populate the data into the template view using the data object
+//        System.out.println(results.getStudentId());
+        roll.setText(results.getStudentId());
         subjectCode.setText(results.getSubjectCode());
         attendance.setText(EncryptAndDecrypt.decrypt(results.getAttendance(), secretKey));
         assignment.setText(EncryptAndDecrypt.decrypt(results.getAssignment(), secretKey));
@@ -56,6 +61,9 @@ public class ResultsAdapter extends ArrayAdapter<Results> {
         grade.setText(results.getGrade());
         remarks.setText(results.getRemarks());
 
+        if(session.get("userid").equals("123456") || session.get("type").equals("Student")){
+            roll.setVisibility(convertView.GONE);
+        }
         // Return the completed view to render on screen
         return convertView;
     }

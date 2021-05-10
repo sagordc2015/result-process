@@ -474,9 +474,11 @@ public class DBHelper extends SQLiteOpenHelper {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 Results results = new Results();
                 Users users = this.getByEmailOrID(cursor.getString(cursor.getColumnIndex("identity")));
+//                results.setStudentId(users.getIdentity());
                 results.setFullName(users.getFullName());
                 results.setDesignationOrCourseName(cursor.getString(cursor.getColumnIndex("designationOrCourseName")));
                 results.setSemester(cursor.getString(cursor.getColumnIndex("semester")));
+                results.setStudentId(cursor.getString(cursor.getColumnIndex("identity")));
                 results.setAttendance(cursor.getString(cursor.getColumnIndex("attendance")));
                 results.setAssignment(cursor.getString(cursor.getColumnIndex("assignment")));
                 results.setPresentation(cursor.getString(cursor.getColumnIndex("presentation")));
